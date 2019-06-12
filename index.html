@@ -4,7 +4,8 @@
     <title>PDMPB</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1>Personal Data Management with Public Blockchain</h1>
+    <h4>Your ETH address:</h4>
     <h4 id="address"></h4>
   </body>
   <script>
@@ -19,14 +20,11 @@
 
   web3.currentProvider.publicConfigStore.on('update', function(result, error) {
     if (!error) {
-      console.log(error);
-      console.log(result);
-      document.getElementById('address').innerHTML = result.selectedAddress;
+      document.getElementById('address').innerHTML += result.selectedAddress;
     }
     else {
-      console.log('Error in the method');
+      console.log('Error when fetching address');
       console.log(error);
-      console.log(result);
     }
   });
 
