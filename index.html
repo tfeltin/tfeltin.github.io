@@ -18,10 +18,10 @@
   web3.eth.defaultAccount = web3.eth.accounts[0];
 
   web3.currentProvider.publicConfigStore.on('update', function(result, error) {
-    if (!error && result) {
+    if (!error) {
       console.log(error);
       console.log(result);
-      document.getElementById('address').innerHTML = result._state.selectedAddress;
+      document.getElementById('address').innerHTML = result.selectedAddress;
     }
     else {
       console.log('Error in the method');
