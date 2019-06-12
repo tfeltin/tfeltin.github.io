@@ -11,7 +11,7 @@
   <script>
   if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
-    window.getElementById('address') = web3.currentProvider.selectedAddress;
+    document.getElementById('address') = web3.currentProvider.selectedAddress;
   }else{
     web3 = new Web3(new Web3.providers.HttpProviders("rinkeby.infura.io/v3/87c66a413df1470abf86a50b4a8bf555"));
   }
