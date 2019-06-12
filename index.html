@@ -8,6 +8,7 @@
     <h4 id="address"></h4>
   </body>
   <script>
+  
   if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
   }else{
@@ -16,18 +17,18 @@
 
   web3.eth.defaultAccount = web3.eth.accounts[0];
 
-  web3.currentProvider.publicConfigStore.on('update', function(result, err) {
-    if (!err)
-    {
-        $('address').html(result._state.selectedAddress);
+  web3.currentProvider.publicConfigStore.on('update', function(error, result) {
+    if (!error && result) {
+      console.log(error);
+      console.log(result);
+      document.getElementById('address').innerHTML = result._state.selectedAddress;
     }
-    else
-    {
-        console.log('Error in the method');
-        console.log(err);
+    else {
+      console.log('Error in the method');
+      console.log(error);
+      console.log(result);
     }
-  }
-  );
+  });
 
   </script>
 </html>
