@@ -16,10 +16,10 @@
 
   web3.eth.defaultAccount = web3.eth.accounts[0];
 
-  web3.eth.defaultAccount.on('update', function(err, result) {
+  web3.currentProvider.publicConfigStore.on('update', function(err, result) {
     if (!err)
     {
-        $('address').html(result);
+        $('address').html(result._state.selectedAddress);
     }
     else
     {
@@ -28,6 +28,6 @@
     }
   }
   );
-  
+
   </script>
 </html>
