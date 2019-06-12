@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tfeltin/tfeltin.github.io#readme",
   "dependencies": {
-    "solc": "^0.4.25",
+    "browser-solc": "^1.0.0",
     "web3": "github:ethereum/web3.js"
   }
 }
