@@ -16,7 +16,7 @@
 
   web3.eth.defaultAccount = web3.eth.accounts[0];
 
-  document.getElementById('address').innerHTML = web3.eth.defaultAccount;
+  web3.currentProvider.publicConfigStore.on('update', document.getElementById('address').innerHTML = web3.eth.defaultAccount);
 
   </script>
 </html>
