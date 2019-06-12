@@ -8,7 +8,7 @@
     <h4 id="address"></h4>
   </body>
   <script>
-  
+
   if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
   }else{
@@ -17,7 +17,7 @@
 
   web3.eth.defaultAccount = web3.eth.accounts[0];
 
-  web3.currentProvider.publicConfigStore.on('update', function(error, result) {
+  web3.currentProvider.publicConfigStore.on('update', function(result, error) {
     if (!error && result) {
       console.log(error);
       console.log(result);
