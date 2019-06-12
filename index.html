@@ -16,7 +16,18 @@
 
   web3.eth.defaultAccount = web3.eth.accounts[0];
 
-  web3.currentProvider.publicConfigStore.on('update', document.getElementById('address').innerHTML = web3.eth.defaultAccount);
-
+  web3.eth.defaultAccount.on('update', function(err, result) {
+    if (!err)
+    {
+        $('address').html(result);
+    }
+    else
+    {
+        console.log('Error in the method');
+        console.log(error);
+    }
+  }
+  );
+  
   </script>
 </html>
