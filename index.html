@@ -17,16 +17,6 @@
   }
 
   web3.eth.defaultAccount = web3.eth.accounts[0];
-
-  web3.currentProvider.publicConfigStore.on('update', function(result, error) {
-    if (!error) {
-      document.getElementById('address').innerHTML += result.selectedAddress;
-    }
-    else {
-      console.log('Error when fetching address');
-      console.log(error);
-    }
-  });
-
   </script>
+  <script async src="./javascript/showAddress.js"></script>
 </html>
