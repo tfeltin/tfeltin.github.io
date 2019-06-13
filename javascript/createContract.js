@@ -1,7 +1,4 @@
-BrowserSolc.getVersions(function(soljsonSources, soljsonReleases) {
-  console.log(soljsonSources);
-  console.log(soljsonReleases);
-});
+var fs = require('fs');
 
 var compiledContract = BrowserSolc.compile(fs.readFileSync('./solidity/agreement.sol').toString());
 console.log(compiledContract);
