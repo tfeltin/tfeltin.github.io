@@ -1,6 +1,6 @@
 var source;
 
-fetch('./solidity/agreement.txt')
+fetch('./solidity/agreement.sol')
   .then(response => response.text())
   .then(text => source = text);
 
