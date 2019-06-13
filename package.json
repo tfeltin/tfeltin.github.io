@@ -1,7 +1,6 @@
 {
   "name": "tfeltin.github.io",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,9 +15,9 @@
     "url": "https://github.com/tfeltin/tfeltin.github.io/issues"
   },
   "homepage": "https://github.com/tfeltin/tfeltin.github.io#readme",
+  "description": "",
   "dependencies": {
     "browser-solc": "^1.0.0",
-    "browserify": "^16.2.3",
     "web3": "github:ethereum/web3.js"
   }
 }
