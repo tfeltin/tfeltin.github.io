@@ -1,5 +1,5 @@
 var BrowserSolc = require('browser-solc');
-ver fs = require('fs');
+var fs = require('fs');
 
 var compiledContract = BrowserSolc.compile(fs.readFileSync('./solidity/agreement.sol', 'utf-8').toString());
 console.log(compiledContract);
