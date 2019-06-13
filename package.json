@@ -18,7 +18,7 @@
   "description": "",
   "dependencies": {
     "browser-solc": "^1.0.0",
-    "is-buffer": "^2.0.3",
+    "file-system": "^2.2.2",
     "web3": "github:ethereum/web3.js"
   }
 }
