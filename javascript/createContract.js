@@ -15,7 +15,7 @@ function readTextFile(file){
     rawFile.send(null);
 }
 
-var compiledContract = BrowserSolc.compile(readTextFile('./javascript/agreement.sol').toString());
+var compiledContract = BrowserSolc.compile(readTextFile('./solidity/agreement.sol');
 console.log(compiledContract);
 var abi = compiledContract.contracts[':Agreement'].interface;
 var bytecode = compiledContract.contracts[':Agreement'].bytecode;
