@@ -1,12 +1,11 @@
-var contractText;
+var source;
 
 fetch('./solidity/agreement.txt')
   .then(response => response.text())
-  .then(text => contractText = text);
+  .then(text => source = text);
 
-var compiledContract = BrowserSolc.compile(contractText);
-console.log(compiledContract);
-var abi = compiledContract.contracts[':Agreement'].interface;
-var bytecode = compiledContract.contracts[':Agreement'].bytecode;
-console.log(abi);
-console.log(bytecode);
+BrowserSolc.loadVersion("soljson-v0.4.6+commit.2dabbdf0.js", function(compiler) {
+  optimize = 1;
+  result = compiler.compile(source, optimize);
+  console.log(result);
+});
