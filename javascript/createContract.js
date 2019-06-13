@@ -1,19 +1,6 @@
-function readTextFile(file){
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                return allText;
-            }
-        }
-    }
-    rawFile.send(null);
-}
+fetch('./solidity/agreement.txt')
+  .then(response => response.text())
+  .then(text => console.log(text));
 
 var compiledContract = BrowserSolc.compile(readTextFile('./solidity/agreement.sol');
 console.log(compiledContract);
