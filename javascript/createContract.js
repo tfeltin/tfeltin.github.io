@@ -1,5 +1,3 @@
-var fs = require('fs');
-
 var compiledContract = BrowserSolc.compile(fs.readFileSync('./solidity/agreement.sol').toString());
 console.log(compiledContract);
 var abi = compiledContract.contracts[':Agreement'].interface;
