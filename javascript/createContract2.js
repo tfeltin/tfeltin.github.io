@@ -120,4 +120,4 @@ function deployContract(){
 	});
 }
 
-document.getElementById('deploy_b').addEventListener("click", deployContract());
+document.getElementById('deploy_b').addEventListener("click", function() {deployContract()});
