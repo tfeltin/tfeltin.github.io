@@ -104,7 +104,7 @@ function deployContract(){
 		data: '0x' + bytecode['object'],
     from: web3.eth.defaultAccount,
     gas: 90000*2
-	}, (err, res) => {
+	}, (err, res) => { 
 	    if (err) {
 	        console.log(err);
 	        return;
