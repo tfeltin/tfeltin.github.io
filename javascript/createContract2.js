@@ -103,8 +103,8 @@ function deployContract(){
 	const contractInstance = contract.new({
 		data: '0x' + bytecode['object'],
     from: web3.eth.defaultAccount,
-    gas: 90000*2
-	}, (err, res) => { 
+    gas: 20000000
+	}, (err, res) => {
 	    if (err) {
 	        console.log(err);
 	        return;
