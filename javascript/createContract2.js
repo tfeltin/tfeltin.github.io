@@ -100,7 +100,7 @@ var bytecode = {
 
 function deployContract(){
 	const contract = web3.eth.contract(abi);
-  const contractInstance = contract.new({
+	const contractInstance = contract.new({
 		data: '0x' + bytecode['object'],
     from: web3.eth.defaultAccount,
     gas: 90000*2
