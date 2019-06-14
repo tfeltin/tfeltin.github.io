@@ -118,4 +118,4 @@ function deployContract(){
   console.log(rawTx);
 }
 
-window.getElementById('deploy_b').addEventListener("click", deployContract());
+document.getElementById('deploy_b').addEventListener("click", deployContract());
