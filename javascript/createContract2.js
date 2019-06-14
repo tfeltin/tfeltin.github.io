@@ -99,23 +99,25 @@ var bytecode = {
 };
 
 function deployContract(){
-  let gasPrice = web3.eth.gasPrice;
-  let gasPriceHex = web3.toHex(gasPrice);
-  let gasLimitHex = web3.toHex(6000000);
-  let nonce =  web3.eth.getTransactionCount(web3.eth.defaultAccount, "pending");
-  let nonceHex = web3.toHex(nonce);
-
-  var agreementContract = web3.eth.contract(abi);
-  var contractData = bytecode['object'];
-  var rawTx = {
-      nonce: nonceHex,
-      gasPrice: gasPriceHex,
-      gasLimit: gasLimitHex,
-      data: contractData,
-      from: accounts[selectedAccountIndex].address
-  };
-  console.log(agreementContract);
-  console.log(rawTx);
+	const contract = web3.eth.contract(abi);
+  const contractInstance = contract.new({
+		data: '0x' + bytecode['object'],
+    from: web3.eth.defaultAccount,
+    gas: 90000*2
+	}, (err, res) => {
+	    if (err) {
+	        console.log(err);
+	        return;
+	    }
+	    // Log the tx, you can explore status with eth.getTransaction()
+	    console.log(res.transactionHash);
+	    // If we have an address property, the contract was deployed
+	    if (res.address) {
+	        console.log('Contract address: ' + res.address);
+	        // Let's test the deployed contract
+	        testContract(res.address);
+	    }
+	});
 }
 
 document.getElementById('deploy_b').addEventListener("click", deployContract());
