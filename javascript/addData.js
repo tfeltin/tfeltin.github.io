@@ -104,19 +104,41 @@ const abi = [
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 
-function addUserData(){
-  var ipfsAddress = document.getElementById("ipfs_address").value;
-  console.log(ipfsAddress);
-	console.log(contract);
+function userAddData(){
+  const ipfsAddress = document.getElementById("ipfs_address").value;
+	const tx = {
+	  from: fromAccount,
+	  gas: gasLimit,
+	  gasPrice: gasPriceInWei
+	};
+	contract.userAddData.sendTransaction({_ipfsAddress: ipfsAddress}, tx, (err, result) => {
+		if (!err){
+			console.log(result);
+		} else {
+			console.log("Error in transaction")
+			console.log(err);
+		}
+	});
 }
 
-function addSPData(){
-  var ipfsAddress = document.getElementById("ipfs_user_address").value;
-	var userAddress = document.getElementById("user_eth_address").value;
-  console.log(ipfsAddress);
-  console.log(userAddress);
-	console.log(contract);
+
+function spAddData(){
+  const ipfsAddress = document.getElementById("ipfs_user_address").value;
+	const userAddress = document.getElementById("user_eth_address").value;
+	const tx = {
+		from: fromAccount,
+		gas: gasLimit,
+		gasPrice: gasPriceInWei
+	};
+	contract.spAddData.sendTransaction({_ipfsAddress:ipfsAddress, userAddress:userAddress}, tx, (err, result) => {
+		if (!err){
+			console.log(result);
+		} else {
+			console.log("Error in transaction")
+			console.log(err);
+		}
+	});
 }
 
-document.getElementById("useraddbutton").addEventListener("click", addUserData);
-document.getElementById("spadduserdatabutton").addEventListener("click", addSPData);
+document.getElementById("useraddbutton").addEventListener("click", userAddData);
+document.getElementById("spadduserdatabutton").addEventListener("click", spAddData);
