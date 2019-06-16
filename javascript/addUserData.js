@@ -101,12 +101,12 @@ const abi = [
 		"type": "function"
 	}
 ];
+const cont = window.web3.eth.contract(abi);
+const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 
 function addUserData(){
   var ipfsAddress = document.getElementById("ipfs_address").value;
   console.log(ipfsAddress);
-  cont = window.web3.eth.contract(JSON.parse(abi));
-  contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 	console.log(contract);
 }
 
@@ -115,8 +115,6 @@ function addSPData(){
 	var userAddress = document.getElementById("user_eth_address").value;
   console.log(ipfsAddress);
   console.log(userAddress);
-  cont = window.web3.eth.contract(JSON.parse(abi));
-  contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 	console.log(contract);
 }
 
