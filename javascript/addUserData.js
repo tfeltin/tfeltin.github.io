@@ -105,7 +105,7 @@ const abi = [
 function addUserData(){
   var ipfsAddress = document.getElementById("ipfs_address").value;
   console.log(ipfsAddress);
-  await window.web3.estimateGas();
+  window.web3.estimateGas();
   cont = window.web3.eth.contract(JSON.parse(abi));
   contract = cont.at('{{ project.address }}');
 }
