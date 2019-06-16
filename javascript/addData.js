@@ -149,7 +149,7 @@ function spAddData(){
 	console.log(gas);
 	console.log(gasPrice);
 	const tx = {
-		from: fromAccount,
+		from: web3.eth.defaultAccount,
 		gas: gas,
 		gasPrice: gasPrice
 	};
