@@ -109,3 +109,16 @@ function addUserData(){
   cont = window.web3.eth.contract(JSON.parse(abi));
   contract = cont.at('{{ project.address }}');
 }
+
+function addSPData(){
+  var ipfsAddress = document.getElementById("ipfs_user_address").value;
+	var userAddress = document.getElementById("user_eth_address").value;
+  console.log(ipfsAddress);
+  console.log(userAddress);
+  window.web3.estimateGas();
+  cont = window.web3.eth.contract(JSON.parse(abi));
+  contract = cont.at('{{ project.address }}');
+}
+
+document.getElementById("useraddbutton").addEventListener("click", addUserData);
+document.getElementById("spadduserdatabutton").addEventListener("click", addSPData);
