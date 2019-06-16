@@ -1,4 +1,4 @@
-function async setup(){
+async function setup(){
   if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
     await ethereum.enable();
@@ -8,3 +8,5 @@ function async setup(){
     web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/87c66a413df1470abf86a50b4a8bf555"));
   }
 }
+
+setup();
