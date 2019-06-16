@@ -105,9 +105,9 @@ const abi = [
 function addUserData(){
   var ipfsAddress = document.getElementById("ipfs_address").value;
   console.log(ipfsAddress);
-  window.web3.estimateGas();
   cont = window.web3.eth.contract(JSON.parse(abi));
-  contract = cont.at('{{ project.address }}');
+  contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
+	console.log(contract);
 }
 
 function addSPData(){
@@ -115,9 +115,9 @@ function addSPData(){
 	var userAddress = document.getElementById("user_eth_address").value;
   console.log(ipfsAddress);
   console.log(userAddress);
-  window.web3.estimateGas();
   cont = window.web3.eth.contract(JSON.parse(abi));
-  contract = cont.at('{{ project.address }}');
+  contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
+	console.log(contract);
 }
 
 document.getElementById("useraddbutton").addEventListener("click", addUserData);
