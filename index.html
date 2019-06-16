@@ -13,23 +13,30 @@
   <body>
     <h1>Personal Data Management with Public Blockchain</h1>
     <h3>Your ETH address: <span style="font-weight:normal" id="address">Log in to MetaMask to show your address</span></h3>
-    <h2>USER SIDE</h2>
-      <h3>Add personal data</h3>
-      <form>
-        IPFS data address:<br>
-        <input type="text" name="ipfs_address"><br>
-      </form>
-      <button type="button" id="add_user_data">Add</button>
-    <h2>SERVICE PROVIDER SIDE</h2>
-      <h3>Add a user's personal data</h3>
-      <form>
-        IPFS data address:<br>
-        <input type="text" name="ipfs_user_address"><br>$
-        User ETH address:<br>
-        <input type="text" name="user_eth_address"><br>
-      </form>
-      <button type="button" id="add_sp_data">Add</button>
-    <h2>SERVICE PROVIDER SIDE</h2>
+    <div class="row">
+      <div class="column">
+        <h2>USER SIDE</h2>
+        <h3>Add personal data</h3>
+        <form>
+          IPFS data address:<br>
+          <input type="text" name="ipfs_address"><br>
+        </form>
+        <button type="button" id="add_user_data">Add</button>
+      </div>
+      <div class="column">
+        <h2>SERVICE PROVIDER SIDE</h2>
+        <h3>Add a user's personal data</h3>
+        <form>
+          IPFS data address:<br>
+          <input type="text" name="ipfs_user_address"><br>
+          User ETH address:<br>
+          <input type="text" name="user_eth_address"><br>
+        </form>
+        <button type="button" id="add_sp_data">Add</button>
+      </div>
+    </div>
+
+
     </body>
 
   <script async type="text/javascript" src="./javascript/addUserData.js"></script>
