@@ -149,7 +149,7 @@ function spAddData(){
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			contract.spAddData.estimateGas(inputs, {from: web3.eth.defaultAccount}, (err, gas) => {
+			contract.spAddData.estimateGas(ipfsAddress, userAddress, {from: web3.eth.defaultAccount}, (err, gas) => {
 				if (!err){
 					return(gas, gasPrice);
 					console.log(gas);
