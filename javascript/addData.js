@@ -106,13 +106,30 @@ const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 
 
-function getGas(fcall, inputs){
+
+function userAddData(){
+	const ipfsAddress = document.getElementById("ipfs_address").value;
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			fcall.estimateGas(inputs, {from: web3.eth.defaultAccount}, (err, gas) => {
+			fcall.estimateGas(ipfsAddress, {from: web3.eth.defaultAccount}, (err, gas) => {
 				if (!err){
 					return(gas, gasPrice);
+					console.log(gas);
+					console.log(gasPrice);
+					const tx = {
+						from: web3.eth.defaultAccount,
+						gas: gas,
+						gasPrice: gasPrice
+					};
+					contract.userAddData.sendTransaction({_ipfsAddress: ipfsAddress}, tx, (err, result) => {
+						if (!err){
+							console.log(result);
+						} else {
+							console.log("Error in transaction")
+							console.log(err);
+						}
+					});
 				} else {
 					console.log("Error while estimating gas");
 					console.log(err);
@@ -126,44 +143,38 @@ function getGas(fcall, inputs){
 }
 
 
-function userAddData(){
-  const ipfsAddress = document.getElementById("ipfs_address").value;
-	var gas, gasPrice = getGas(contract.userAddData, {_ipfsAddress: ipfsAddress});
-	console.log(gas);
-	console.log(gasPrice);
-	const tx = {
-	  from: web3.eth.defaultAccount,
-	  gas: gas,
-	  gasPrice: gasPrice
-	};
-	contract.userAddData.sendTransaction({_ipfsAddress: ipfsAddress}, tx, (err, result) => {
-		if (!err){
-			console.log(result);
-		} else {
-			console.log("Error in transaction")
-			console.log(err);
-		}
-	});
-}
-
-
 function spAddData(){
   const ipfsAddress = document.getElementById("ipfs_user_address").value;
 	const userAddress = document.getElementById("user_eth_address").value;
-	var gas, gasPrice = getGas(contract.spAddData, {_ipfsAddress: ipfsAddress, userAddress:userAddress});
-	console.log(gas);
-	console.log(gasPrice);
-	const tx = {
-		from: web3.eth.defaultAccount,
-		gas: gas,
-		gasPrice: gasPrice
-	};
-	contract.spAddData.sendTransaction({_ipfsAddress:ipfsAddress, userAddress:userAddress}, tx, (err, result) => {
-		if (!err){
-			console.log(result);
+	web3.eth.getGasPrice((e, gasPrice) => {
+		if (!e){
+			gasPrice = gasPrice.c[0];
+			fcall.estimateGas(inputs, {from: web3.eth.defaultAccount}, (err, gas) => {
+				if (!err){
+					return(gas, gasPrice);
+					console.log(gas);
+					console.log(gasPrice);
+					const tx = {
+						from: web3.eth.defaultAccount,
+						gas: gas,
+						gasPrice: gasPrice
+					};
+					contract.spAddData.sendTransaction(ipfsAddress, userAddress, tx, (err, result) => {
+						if (!err){
+							console.log(result);
+						} else {
+							console.log("Error in transaction")
+							console.log(err);
+						}
+					});
+				} else {
+					console.log("Error while estimating gas");
+					console.log(err);
+				}
+			});
 		} else {
-			console.log("Error in transaction")
-			console.log(err);
+			console.log("Error while estimating gas price");
+			console.log(e);
 		}
 	});
 }
