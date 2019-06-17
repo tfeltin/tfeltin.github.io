@@ -117,7 +117,7 @@ function getGas(fcall, inputs){
 					console.log(e);
 				} else {
 					return(gas, gasPrice);
-				};
+				}
 			});
 		}
 	});
