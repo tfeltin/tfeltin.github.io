@@ -121,7 +121,7 @@ function userAddData(){
 						gas: gas,
 						gasPrice: gasPrice
 					};
-					contract.userAddData.sendTransaction({_ipfsAddress: ipfsAddress}, tx, (err, result) => {
+					contract.userAddData.sendTransaction(ipfsAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
 						} else {
