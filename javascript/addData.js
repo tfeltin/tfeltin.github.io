@@ -118,8 +118,12 @@ function getGas(fcall, inputs){
 				} else {
 					return(gas, gasPrice);
 				};
-		});
+			});
+		}
+	});
 }
+
+
 
 function userAddData(){
   const ipfsAddress = document.getElementById("ipfs_address").value;
