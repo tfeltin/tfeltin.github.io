@@ -114,8 +114,6 @@ function userAddData(){
 			gasPrice = gasPrice.c[0];
 			contract.userAddData.estimateGas(ipfsAddress, {from: web3.eth.defaultAccount}, (err, gas) => {
 				if (!err){
-					console.log(gas);
-					console.log(gasPrice);
 					const tx = {
 						from: web3.eth.defaultAccount,
 						gas: gas,
@@ -150,8 +148,6 @@ function spAddData(){
 			gasPrice = gasPrice.c[0];
 			contract.spAddData.estimateGas(ipfsAddress, userAddress, {from: web3.eth.defaultAccount}, (err, gas) => {
 				if (!err){
-					console.log(gas);
-					console.log(gasPrice);
 					const tx = {
 						from: web3.eth.defaultAccount,
 						gas: gas,
@@ -159,7 +155,6 @@ function spAddData(){
 					};
 					contract.spAddData.sendTransaction(ipfsAddress, userAddress, tx, (err, result) => {
 						if (!err){
-							console.log("c fini")
 							console.log(result);
 						} else {
 							console.log("Error in transaction")

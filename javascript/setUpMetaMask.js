@@ -10,3 +10,4 @@ async function setup(){
 }
 
 setup();
+const node = new IPFS();

@@ -19,6 +19,7 @@
   "dependencies": {
     "browser-solc": "^1.0.0",
     "file-system": "^2.2.2",
+    "ipfs": "^0.36.3",
     "web3": "github:ethereum/web3.js"
   }
 }
