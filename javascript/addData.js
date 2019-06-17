@@ -101,28 +101,29 @@ const abi = [
 		"type": "function"
 	}
 ];
+
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
+
 
 function getGas(fcall, inputs){
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
-			console.log("Error while estimating gas price");
-			console.log(e);
-		} else {
 			gasPrice = gasPrice.c[0];
-			fcall.estimateGas(inputs, {from: web3.eth.defaultAccount}, (e, gas) => {
-				if (!e){
-					console.log("Error while estimating gas");
-					console.log(e);
-				} else {
+			fcall.estimateGas(inputs, {from: web3.eth.defaultAccount}, (err, gas) => {
+				if (!err){
 					return(gas, gasPrice);
+				} else {
+					console.log("Error while estimating gas");
+					console.log(err);
 				}
 			});
+		} else {
+			console.log("Error while estimating gas price");
+			console.log(e);
 		}
 	});
 }
-
 
 
 function userAddData(){
@@ -166,6 +167,7 @@ function spAddData(){
 		}
 	});
 }
+
 
 document.getElementById("useraddbutton").addEventListener("click", userAddData);
 document.getElementById("spadduserdatabutton").addEventListener("click", spAddData);
