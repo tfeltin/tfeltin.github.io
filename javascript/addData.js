@@ -108,7 +108,6 @@ const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 
 
 function userAddData(){
-	// const ipfsAddress = document.getElementById("ipfs_address").value;
 	const userFile = document.getElementById("useradd_file");
 	console.log(userFile);
 	let ipfsAddress;
@@ -133,8 +132,9 @@ function userAddData(){
 					contract.userAddData.sendTransaction(ipfsAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
+							document.getElementById('useradd_result').innerHTML = "File successfully added with hash " + ipfsAddress;
 						} else {
-							console.log("Error in transaction")
+							console.log("Error in transaction");
 							console.log(err);
 						}
 					});
@@ -152,8 +152,18 @@ function userAddData(){
 
 
 function spAddData(){
-  const ipfsAddress = document.getElementById("ipfs_user_address").value;
 	const userAddress = document.getElementById("user_eth_address").value;
+	const spFile = document.getElementById("spadd_file");
+	console.log(spFile);
+	let ipfsAddress;
+  node.add(spFile.files[0], { progress: (prog) => console.log(`received: ${prog}`) })
+    .then((response) => {
+      console.log(response);
+      ipfsAddress = response[0].hash;
+      console.log(ipfsAddress);
+    }).catch((err) => {
+      console.error(err)
+    });
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
@@ -167,8 +177,9 @@ function spAddData(){
 					contract.spAddData.sendTransaction(ipfsAddress, userAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
+							document.getElementById('spadd_result').innerHTML = "File successfully added with hash " + ipfsAddress;
 						} else {
-							console.log("Error in transaction")
+							console.log("Error in transaction");
 							console.log(err);
 						}
 					});
