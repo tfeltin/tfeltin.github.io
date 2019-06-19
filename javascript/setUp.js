@@ -126,7 +126,7 @@ function getMyData(){
         var ipfsadd = r.substring(0,46);
         r = r.substring(46);
         var a = document.createElement('a');
-        var linkText = document.createTextNode(r);
+        var linkText = document.createTextNode(ipfsadd);
         a.appendChild(linkText);
         document.getElementById("myDataloc").appendChild(a);
         var br = document.createElement('br');
