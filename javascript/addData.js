@@ -108,9 +108,18 @@ const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 
 
 function userAddData(){
-	const ipfsAddress = document.getElementById("ipfs_address").value;
+	// const ipfsAddress = document.getElementById("ipfs_address").value;
 	const userFile = document.getElementById("useradd_file");
 	console.log(userFile);
+	let ipfsAddress;
+  node.add(userFile.files[0], { progress: (prog) => console.log(`received: ${prog}`) })
+    .then((response) => {
+      console.log(response);
+      ipfsAddress = response[0].hash;
+      console.log(ipfsAddress);
+    }).catch((err) => {
+      console.error(err)
+    });
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
