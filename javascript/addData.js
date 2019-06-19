@@ -131,7 +131,7 @@ function userAddData(){
 					contract.userAddData.sendTransaction(ipfsAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
-							document.getElementById('useradd_result').innerHTML = "File successfully added with hash " + ipfsAddress;
+							document.getElementById('useradd_result')= <a href={'https://ipfs.io/ipfs/' + ipfsAddress}>{ipfsAddress}</a>;
 							document.getElementById("useradd_form").reset();
 						} else {
 							console.log("Error in transaction");
@@ -177,7 +177,7 @@ function spAddData(){
 					contract.spAddData.sendTransaction(ipfsAddress, userAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
-							document.getElementById('spadd_result').innerHTML = "File successfully added with hash " + ipfsAddress;
+							document.getElementById('spadd_result') = <a href={'https://ipfs.io/ipfs/' + ipfsAddress}>{ipfsAddress}</a>
 							document.getElementById("spadd_form").reset();
 						} else {
 							console.log("Error in transaction");
