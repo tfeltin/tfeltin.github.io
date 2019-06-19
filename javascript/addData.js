@@ -104,8 +104,7 @@ const abi = [
 
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
-
-
+const node = new window.Ipfs();
 
 function userAddData(){
 	const userFile = document.getElementById("useradd_file");
@@ -133,6 +132,7 @@ function userAddData(){
 						if (!err){
 							console.log(result);
 							document.getElementById('useradd_result').innerHTML = "File successfully added with hash " + ipfsAddress;
+							document.getElementById("useradd_form").reset();
 						} else {
 							console.log("Error in transaction");
 							console.log(err);
@@ -178,6 +178,7 @@ function spAddData(){
 						if (!err){
 							console.log(result);
 							document.getElementById('spadd_result').innerHTML = "File successfully added with hash " + ipfsAddress;
+							document.getElementById("spadd_form").reset();
 						} else {
 							console.log("Error in transaction");
 							console.log(err);
