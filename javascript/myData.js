@@ -2,7 +2,7 @@ function getMyData(){
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			contract.userAddData.estimateGas(ipfsAddress, {from: web3.eth.defaultAccount}, (err, gas) => {
+			contract.userAddData.estimateGas({from: web3.eth.defaultAccount}, (err, gas) => {
 				if (!err){
 					const tx = {
 						from: web3.eth.defaultAccount,
