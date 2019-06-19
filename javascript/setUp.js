@@ -122,7 +122,16 @@ const node = new window.Ipfs();
 function getMyData(){
   contract.getMyData.call((e,r) => {
     if (!e){
-      document.getElementById("myDataloc").innerHTML = r;
+      while(r.length > 0){
+        var ipfsadd = r.substring(0,46);
+        r = r.substring(46);
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(ipfsAddress);
+        a.appendChild(linkText);
+        document.getElementById("myDataloc").appendChild(a);
+        var br = document.createElement('br');
+        document.getElementById("myDataloc").appendChild(br);
+      }
     } else {
       console.log(e);
     }
