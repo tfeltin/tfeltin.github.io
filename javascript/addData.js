@@ -109,6 +109,8 @@ const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 
 function userAddData(){
 	const ipfsAddress = document.getElementById("ipfs_address").value;
+	const userFile = document.getElementById("useradd_file");
+	console.log(userFile);
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
