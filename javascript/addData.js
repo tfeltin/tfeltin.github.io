@@ -131,7 +131,11 @@ function userAddData(){
 					contract.userAddData.sendTransaction(ipfsAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
-							document.getElementById('useradd_result')= <a href={'https://ipfs.io/ipfs/' + ipfsAddress}>{ipfsAddress}</a>;
+							var a = document.createElement('a');
+							var linkText = document.createTextNode(ipfsAddress);
+							a.appendChild(linkText);
+							a.href = "http://ipfs.io/ipfs/" + ipfsAddress;
+							document.getElementById('useradd_result') = a;
 							document.getElementById("useradd_form").reset();
 						} else {
 							console.log("Error in transaction");
@@ -177,7 +181,11 @@ function spAddData(){
 					contract.spAddData.sendTransaction(ipfsAddress, userAddress, tx, (err, result) => {
 						if (!err){
 							console.log(result);
-							document.getElementById('spadd_result') = <a href={'https://ipfs.io/ipfs/' + ipfsAddress}>{ipfsAddress}</a>
+							var a = document.createElement('a');
+							var linkText = document.createTextNode(ipfsAddress);
+							a.appendChild(linkText);
+							a.href = "http://ipfs.io/ipfs/" + ipfsAddress;
+							document.getElementById('spadd_result') = a;
 							document.getElementById("spadd_form").reset();
 						} else {
 							console.log("Error in transaction");
