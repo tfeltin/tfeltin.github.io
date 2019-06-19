@@ -135,7 +135,7 @@ function userAddData(){
 							var linkText = document.createTextNode(ipfsAddress);
 							a.appendChild(linkText);
 							a.href = "http://ipfs.io/ipfs/" + ipfsAddress;
-							document.getElementById('useradd_result') = a;
+							document.getElementById("useradd_form").appendChild(a);
 							document.getElementById("useradd_form").reset();
 						} else {
 							console.log("Error in transaction");
@@ -185,7 +185,7 @@ function spAddData(){
 							var linkText = document.createTextNode(ipfsAddress);
 							a.appendChild(linkText);
 							a.href = "http://ipfs.io/ipfs/" + ipfsAddress;
-							document.getElementById('spadd_result') = a;
+							document.getElementById("spadd_form").appendChild(a);
 							document.getElementById("spadd_form").reset();
 						} else {
 							console.log("Error in transaction");
