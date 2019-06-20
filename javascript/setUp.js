@@ -102,6 +102,18 @@ const abi = [
 	}
 ];
 
+const options = {
+	EXPERIMENTAL: {
+		pubsub: true
+	},
+	repo: 'ipfs-' + Math.random(),
+	config: {
+		Addresses: {
+			Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
+		}
+	}
+}
+
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 const node = new window.Ipfs();
