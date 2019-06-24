@@ -29,9 +29,7 @@ function userAddData(){
 						if (!err){
 							console.log(result);
 							var a = document.createElement('a');
-							var linkText = document.createTextNode(ipfsAddress);
-							a.appendChild(linkText);
-							a.href = "http://ipfs.io/ipfs/" + ipfsAddress;
+							var linkText = document.createTextNode("Successfully added file.".green);
 							document.getElementById("useradd_form").appendChild(a);
 							document.getElementById("useradd_form").reset();
 						} else {
