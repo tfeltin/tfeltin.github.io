@@ -1,7 +1,7 @@
 function userAddData(){
-	const userFile = document.getElementById("useradd_file");
+	var userFile = document.getElementById("useradd_file");
 	console.log(userFile);
-	let ipfsAddress;
+	var ipfsAddress;
 	console.log(userFile.files[0].name);
   node.add({
           path: userFile.files[0].name,
@@ -21,7 +21,7 @@ function userAddData(){
 			gasPrice = gasPrice.c[0];
 			contract.userAddData.estimateGas(ipfsAddress, {from: web3.eth.defaultAccount}, (err, gas) => {
 				if (!err){
-					const tx = {
+					var tx = {
 						from: web3.eth.defaultAccount,
 						gas: gas,
 						gasPrice: gasPrice
@@ -52,11 +52,14 @@ function userAddData(){
 
 
 function spAddData(){
-	const userAddress = document.getElementById("user_eth_address").value;
-	const spFile = document.getElementById("spadd_file");
+	var userAddress = document.getElementById("user_eth_address").value;
+	var spFile = document.getElementById("spadd_file");
 	console.log(spFile);
-	let ipfsAddress;
-  node.add(spFile.files[0], { progress: (prog) => console.log(`received: ${prog}`) })
+	var ipfsAddress;
+  node.add({
+          path: spFile.files[0].name,
+          content: spFile.files[0]
+        }, { progress: (prog) => console.log(`received: ${prog}`) })
     .then((response) => {
       console.log(response);
       ipfsAddress = response[0].hash;

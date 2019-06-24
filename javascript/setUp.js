@@ -136,7 +136,6 @@ function downloadableFile(name, hash, size, data) {
   row.appendChild(sizeCell)
   row.appendChild(downloadCell)
 
-	console.log(row);
 	$myDataloc.insertBefore(row, $myDataloc.firstChild);
 	document.getElementById('empty-row').style.display = 'none';
 }
