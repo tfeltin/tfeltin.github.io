@@ -5,63 +5,16 @@ const abi = [
 			{
 				"name": "_ipfsAddress",
 				"type": "string"
-			}
-		],
-		"name": "userAddData",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_ipfsAddress",
-				"type": "string"
 			},
 			{
-				"name": "userAddress",
+				"name": "thirdParty",
 				"type": "address"
 			}
 		],
-		"name": "spAddData",
+		"name": "grantAccess",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_ipfsAddress",
-				"type": "string"
-			}
-		],
-		"name": "askForAccess",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMyData",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -90,17 +43,64 @@ const abi = [
 				"type": "string"
 			},
 			{
-				"name": "thirdParty",
+				"name": "userAddress",
 				"type": "address"
 			}
 		],
-		"name": "grantAccess",
+		"name": "spAddData",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_ipfsAddress",
+				"type": "string"
+			}
+		],
+		"name": "userAddData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_ipfsAddress",
+				"type": "string"
+			}
+		],
+		"name": "checkAccess",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMyData",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
-];
+]
 
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x7c9d70f0ae85a035308405fcb33e000a9284d072");
