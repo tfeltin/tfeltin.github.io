@@ -109,7 +109,8 @@ node.once('start', () => {
 	node.id().then((id) => {document.getElementById('nodeId').innerHTML = id.id;});
 });
 
-function downloadableFile (name, hash, size, data) {
+function downloadableFile(name, hash, size, data) {
+	console.log("starting to format file");
   const file = new window.Blob([data], { type: 'application/octet-binary' })
   const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
@@ -138,6 +139,8 @@ function downloadableFile (name, hash, size, data) {
 	document.getElementById("myDataloc").insertRow(row);
 }
 
+let hash;
+
 async function setup(){
   // setup web3 and connect to MetaMask
   if (typeof web3 !== 'undefined') {
@@ -148,10 +151,13 @@ async function setup(){
     contract.getMyData.call((e,r) => {
       if (!e){
         while(r.length > 0){
-          var hash = r.substring(0,46);
+          hash = r.substring(0,46);
           r = r.substring(46);
 
-					node.get(hash).then((files) => downloadableFile(files[0].name, hash, files[0].size, files[0].content));
+					node.get(hash).then((files) => {
+						console.log("got file from ipfs");
+						downloadableFile(files[0].name, hash, files[0].size, files[0].content);
+					});
 
         }
       } else {
