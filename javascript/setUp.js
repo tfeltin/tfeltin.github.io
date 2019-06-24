@@ -102,21 +102,38 @@ const abi = [
 	}
 ];
 
-const options = {
-	EXPERIMENTAL: {
-		pubsub: true
-	},
-	repo: 'ipfs-' + Math.random(),
-	config: {
-		Addresses: {
-			Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
-		}
-	}
-}
-
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
 const node = new window.Ipfs();
+
+function downloadableFile (name, hash, size, data) {
+  const file = new window.Blob([data], { type: 'application/octet-binary' })
+  const url = window.URL.createObjectURL(file)
+  const row = document.createElement('tr')
+
+  const nameCell = document.createElement('td')
+  nameCell.innerHTML = name
+
+  const hashCell = document.createElement('td')
+  hashCell.innerHTML = hash
+
+  const sizeCell = document.createElement('td')
+  sizeCell.innerText = size
+
+  const downloadCell = document.createElement('td')
+  const link = document.createElement('a')
+  link.setAttribute('href', url)
+  link.setAttribute('download', name)
+  link.innerHTML = '<img width=20 class="table-action" src="assets/download.svg" alt="Download" />'
+  downloadCell.appendChild(link)
+
+  row.appendChild(nameCell)
+  row.appendChild(hashCell)
+  row.appendChild(sizeCell)
+  row.appendChild(downloadCell)
+
+	document.getElementById("myDataloc").appendChild(row);
+}
 
 async function setup(){
   // setup web3 and connect to MetaMask
@@ -128,14 +145,14 @@ async function setup(){
     contract.getMyData.call((e,r) => {
       if (!e){
         while(r.length > 0){
-          var ipfsadd = r.substring(0,46);
+          var hash = r.substring(0,46);
           r = r.substring(46);
-          var a = document.createElement('a');
-          var linkText = document.createTextNode(ipfsadd);
-          a.appendChild(linkText);
-          document.getElementById("myDataloc").appendChild(a);
-          var br = document.createElement('br');
+
+					node.get(hash).then((files) => downloadableFile(files[0].name, hash, files[0].size, files[0].content));
+
+					var br = document.createElement('br');
           document.getElementById("myDataloc").appendChild(br);
+
         }
       } else {
         console.log(e);
