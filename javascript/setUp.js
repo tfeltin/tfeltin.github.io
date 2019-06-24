@@ -103,7 +103,7 @@ const abi = [
 ];
 
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x745ab2309831426178cea408672fae1160beb996");
+const contract = cont.at("0x7c9d70f0ae85a035308405fcb33e000a9284d072");
 const node = new window.Ipfs();
 
 function downloadableFile (name, hash, size, data) {
