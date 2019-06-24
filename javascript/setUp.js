@@ -158,6 +158,8 @@ async function setup(){
   } else {
     web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/87c66a413df1470abf86a50b4a8bf555"));
   }
+
+	node.id().then((id) => {document.getElementById('nodeId').innerHTML = id;});
 }
 
 setup();
