@@ -107,7 +107,7 @@ const contract = cont.at("0x7c9d70f0ae85a035308405fcb33e000a9284d072");
 const node = new window.Ipfs();
 node.once('start', () => {
 	node.id().then((id) => {document.getElementById('nodeId').innerHTML = id.id;});
-};
+});
 
 function downloadableFile (name, hash, size, data) {
   const file = new window.Blob([data], { type: 'application/octet-binary' })
