@@ -20,7 +20,6 @@
     </header>
     <h3>ETH address: <span style="font-weight:normal" id="address">Log in to MetaMask to show your address</span></h3>
     <h3>IPFS node ID: <span style="font-weight:normal" id="nodeId"></span></h3>
-    <form id="">Local peer ID:<input type="text" id="peer_id"></form><button type="button" id="peerid_button">Connect</button>
     <div class="row">
       <div class="column">
         <h2>USER SIDE</h2>
@@ -46,7 +45,20 @@
     <hr>
     <div class="row">
       <h2>Your personal data</h2>
-      <p id="myDataloc"></p>
+      <table id="myDataloc">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>CID</th>
+                <th>Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="empty-row">
+                <td colspan="4">You don't have any data.</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
   </body>
 

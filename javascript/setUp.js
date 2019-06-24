@@ -132,7 +132,7 @@ function downloadableFile (name, hash, size, data) {
   row.appendChild(sizeCell)
   row.appendChild(downloadCell)
 
-	document.getElementById("myDataloc").appendChild(row);
+	document.getElementById("myDataloc").insertRow(row);
 }
 
 async function setup(){
@@ -149,9 +149,6 @@ async function setup(){
           r = r.substring(46);
 
 					node.get(hash).then((files) => downloadableFile(files[0].name, hash, files[0].size, files[0].content));
-
-					var br = document.createElement('br');
-          document.getElementById("myDataloc").appendChild(br);
 
         }
       } else {
