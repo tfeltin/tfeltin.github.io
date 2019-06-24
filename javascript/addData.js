@@ -2,7 +2,12 @@ function userAddData(){
 	const userFile = document.getElementById("useradd_file");
 	console.log(userFile);
 	let ipfsAddress;
-  node.add(userFile.files[0], { progress: (prog) => console.log(`received: ${prog}`) })
+  node.add({
+          path: userFile.name,
+          content: userFile.files[0]
+        },
+				 { progress: (prog) => console.log(`received: ${prog}`) }
+			 )
     .then((response) => {
       console.log(response);
       ipfsAddress = response[0].hash;
