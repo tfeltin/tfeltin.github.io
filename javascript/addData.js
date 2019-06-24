@@ -7,7 +7,7 @@ function userAddData(){
           path: userFile.files[0].name,
           content: userFile.files[0]
         },
-				 { progress: (prog) => console.log(`received: ${prog}`) }
+				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
 			 )
     .then((response) => {
       console.log(response);
@@ -59,7 +59,7 @@ function spAddData(){
   node.add({
           path: spFile.files[0].name,
           content: spFile.files[0]
-        }, { progress: (prog) => console.log(`received: ${prog}`) })
+        }, { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) })
     .then((response) => {
       console.log(response);
       ipfsAddress = response[0].hash;
