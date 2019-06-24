@@ -110,7 +110,6 @@ node.once('start', () => {
 });
 
 function downloadableFile(name, hash, size, data) {
-	console.log("starting to format file");
   const file = new window.Blob([data], { type: 'application/octet-binary' })
   const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
@@ -136,7 +135,9 @@ function downloadableFile(name, hash, size, data) {
   row.appendChild(sizeCell)
   row.appendChild(downloadCell)
 
+	console.log(row);
 	document.getElementById("myDataloc").insertRow(row);
+	console.log("inserted");
 }
 
 let hash;
@@ -155,7 +156,6 @@ async function setup(){
           r = r.substring(46);
 
 					node.get(hash).then((files) => {
-						console.log("got file from ipfs");
 						downloadableFile(files[0].name, hash, files[0].size, files[0].content);
 					});
 
