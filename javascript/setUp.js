@@ -105,6 +105,9 @@ const abi = [
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x7c9d70f0ae85a035308405fcb33e000a9284d072");
 const node = new window.Ipfs();
+node.once('start', () => {
+	node.id().then((id) => {document.getElementById('nodeId').innerHTML = id.id;});
+};
 
 function downloadableFile (name, hash, size, data) {
   const file = new window.Blob([data], { type: 'application/octet-binary' })
@@ -159,7 +162,6 @@ async function setup(){
     web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/87c66a413df1470abf86a50b4a8bf555"));
   }
 
-	node.id().then((id) => {document.getElementById('nodeId').innerHTML = id;});
 }
 
 setup();
