@@ -2,6 +2,7 @@ function userAddData(){
 	const userFile = document.getElementById("useradd_file");
 	console.log(userFile);
 	let ipfsAddress;
+	console.log(userFile.files[0].name);
   node.add({
           path: userFile.files[0].name,
           content: userFile.files[0]
