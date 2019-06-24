@@ -137,7 +137,7 @@ function downloadableFile(name, hash, size, data) {
 
 	console.log(row);
 	document.getElementById("myDataloc").insertRow(row);
-	console.log("inserted");
+	document.getElementById('empty-row').style.display = 'none';
 }
 
 let hash;
