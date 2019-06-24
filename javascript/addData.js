@@ -3,7 +3,7 @@ function userAddData(){
 	console.log(userFile);
 	let ipfsAddress;
   node.add({
-          path: userFile.name,
+          path: userFile.files[0].name,
           content: userFile.files[0]
         },
 				 { progress: (prog) => console.log(`received: ${prog}`) }
