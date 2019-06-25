@@ -11,7 +11,7 @@ function userAddData(){
 			 )
     .then((response) => {
       console.log("response=",response);
-      ipfsAddress = response[0].hash;
+      ipfsAddress = response[1].hash;
       console.log(ipfsAddress);
     }).catch((err) => {
       console.error(err)
