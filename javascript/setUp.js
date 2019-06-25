@@ -155,7 +155,7 @@ async function setup(){
           r = r.substring(46);
 
 					node.get(hash).then((files) => {
-						downloadableFile(files[1].name, files[1], files[1].size, files[1].content);
+						downloadableFile(files[1].name, hash, files[1].size, files[1].content);
 					});
 
         }
