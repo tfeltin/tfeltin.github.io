@@ -63,23 +63,6 @@ table tbody tr:hover {
   opacity: 1;
 }
 
-.box {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-  padding: 1em;
-  border-radius: 2px;
-  background-color: #F7F8FA;
-}
-
-.box > h2 {
-  display: block;
-  border-bottom: 1px solid #B7BBC8;
-  text-align: center;
-  padding-bottom: 0.5em;
-  margin-bottom: 1em;
-}
-
 #instructor {
     padding:1em;
     background-color:#fff;
