@@ -18,35 +18,43 @@
     <header>
       <h1><center>Personal Data Management with Public Blockchain</center></h1>
     </header>
-    <div>
-      <h3>ETH address: <span style="font-weight:normal" id="address">Log in to MetaMask to show your address</span></h3>
-      <h3>IPFS node ID: <span style="font-weight:normal" id="nodeId"></span></h3>
+    <main>
+    <div class="box">
+      <h2>Your connection</h2>
+      <div><h3>ETH address: <span style="font-weight:normal" id="address">Log in to MetaMask to show your address</span></h3></div>
+      <div><h3>IPFS node ID: <span style="font-weight:normal" id="nodeId"></span></h3></div>
     </div>
-    <hr>
-    <div class="row">
-      <div class="column">
-        <h2>USER SIDE</h2>
-        <h3>Add personal data</h3>
-        <form id="useradd_form">
-          Select a file:<br>
-          <input type="file" id="useradd_file"><br>
-        </form>
-        <button type="button" id="useraddbutton">Add</button>
+    <div class="box">
+      <h2>Add personal data</h2>
+
+      <div class="col-container">
+        <div id="usr" class="box col">
+
+          <h3>USER</h3>
+          <form id="useradd_form">
+            Select a file:<br>
+            <input type="file" id="useradd_file"><br>
+          </form>
+          <button type="button" id="useraddbutton">Add</button>
+
+        </div>
+
+        <div id="sp" class="box col">
+          <h3>SERVICE PROVIDER</h3>
+          <form id="spadd_form">
+            User ETH address:<br>
+            <input type="text" id="user_eth_address"><br>
+            Select a file:<br>
+            <input type="file" id="spadd_file"><br>
+          </form>
+          <button type="button" id="spadduserdatabutton">Add</button>
+
+        </div>
       </div>
-      <div class="column">
-        <h2>SERVICE PROVIDER SIDE</h2>
-        <h3>Add a user's personal data</h3>
-        <form id="spadd_form">
-          User ETH address:<br>
-          <input type="text" id="user_eth_address"><br>
-          Select a file:<br>
-          <input type="file" id="spadd_file"><br>
-        </form>
-        <button type="button" id="spadduserdatabutton">Add</button>
-      </div>
+
     </div>
-    <hr>
-    <div class="row">
+
+    <div class="box row">
       <h2>Your personal data</h2>
       <table>
             <thead>
@@ -63,6 +71,7 @@
             </tbody>
           </table>
     </div>
+  </main>
   </body>
 
   <script src="./javascript/setUp.js"></script>
