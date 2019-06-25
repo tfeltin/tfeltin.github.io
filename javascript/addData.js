@@ -62,7 +62,7 @@ function spAddData(){
         }, { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) })
     .then((response) => {
       console.log(response);
-      ipfsAddress = response[0].hash;
+      ipfsAddress = response[1].hash;
       console.log(ipfsAddress);
     }).catch((err) => {
       console.error(err)
