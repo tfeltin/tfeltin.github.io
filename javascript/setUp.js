@@ -104,7 +104,7 @@ const abi = [
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x9BBDFb64BD1963251EDdb7bCCCaBacF621D4E8e3");
+const contract = cont.at("0x8152bfcc8d0650be062cfcb5c3f4f2af0b3559cc");
 const node = new window.Ipfs();
 node.once('start', () => {
 	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
