@@ -140,7 +140,6 @@ function downloadableFile(name, hash, size, data) {
 	document.getElementById('empty-row').style.display = 'none';
 }
 
-let hash;
 
 async function setup(){
   // setup web3 and connect to MetaMask
@@ -152,7 +151,7 @@ async function setup(){
     contract.getMyData.call((e,r) => {
       if (!e){
         while(r.length > 0){
-          hash = r.substring(0,46);
+          var hash = r.substring(0,46);
           r = r.substring(46);
 
 					node.get(hash).then((files) => {
