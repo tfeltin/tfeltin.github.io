@@ -151,11 +151,11 @@ async function setup(){
     contract.getMyData.call((e,r) => {
       if (!e){
         while(r.length > 0){
-          var hash = r.substring(0,46);
+          const hash = r.substring(0,46);
           r = r.substring(46);
 
 					node.get(hash).then((files) => {
-						downloadableFile(files[1].name, hash, files[1].size, files[1].content);
+						downloadableFile(files[1].name, files[1], files[1].size, files[1].content);
 					});
 
         }
