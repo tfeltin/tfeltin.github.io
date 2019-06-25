@@ -10,7 +10,7 @@ function userAddData(){
 				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
 			 )
     .then((response) => {
-      console.log(response);
+      console.log("response=",response);
       ipfsAddress = response[0].hash;
       console.log(ipfsAddress);
     }).catch((err) => {
