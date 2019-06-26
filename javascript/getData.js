@@ -32,8 +32,8 @@ function downloadableFile_usr(name, hash, size, data) {
 
 function getData(){
   var flag = 0;
-  const userData = document.getElementById("user_getdata");;  // TODO
-  contract.getMyData.call((e,userData) => {
+  const user_add = document.getElementById("user_getdata").value;
+  contract.getMyData.call(user_add, (e,userData) => {
     if (!e){
       while(userData.length > 0){
         const hash = userData.substring(0,46);
@@ -41,7 +41,6 @@ function getData(){
 
         contract.checkAccess.call(hash, (er,r) => {
           if (!er){
-            console.log(r);
             if (r == true){
               node.get(hash).then((files) => {
                 downloadableFile_usr(files[1].name, hash, files[1].size, files[1].content);
@@ -52,6 +51,9 @@ function getData(){
             console.log(er);
           }
         });
+      }
+      if (flag == 0){
+        document.getElementById("empty-row-get").innerHTML = "You don't have access to data owned by this address"
       }
     } else {
       console.log(e);
