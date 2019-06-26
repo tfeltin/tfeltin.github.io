@@ -71,10 +71,44 @@
             </tbody>
           </table>
     </div>
+
+    <div class="box">
+      <h2>Access Control</h2>
+
+      <div class="col-container">
+        <div id="grant" class="box col">
+
+          <h3>GRANT ACCESS</h3>
+          <form id="grant_form">
+            Data CID:<br>
+            <input type="text" id="grant_cid"><br>
+            ETH address:<br>
+            <input type="text" id="grant_eth"><br>
+          </form>
+          <button type="button" id="grant_button">Add</button>
+
+        </div>
+
+        <div id="revoke" class="box col">
+          <h3>REVOKE ACCESS</h3>
+          <form id="revoke_form">
+            Data CID:<br>
+            <input type="text" id="revoke_cid"><br>
+            ETH address:<br>
+            <input type="text" id="revoke_eth"><br>
+          </form>
+          <button type="button" id="revoke_button">Add</button>
+
+        </div>
+      </div>
+
+    </div>
+
   </main>
   </body>
 
-  <script src="./javascript/setUp.js"></script>
+  <script type="text/javascript" src="./javascript/setUp.js"></script>
   <script type="text/javascript" src="./javascript/addData.js"></script>
+  <script type="text/javascript" src="./javascript/accessControl.js"></script>
 
 </html>
