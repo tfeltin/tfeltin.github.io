@@ -89,7 +89,7 @@
             ETH address:<br>
             <input type="text" id="grant_eth"><br>
           </form>
-          <button type="button" id="grant_button">Add</button>
+          <button type="button" id="grant_button">OK</button>
 
         </div>
 
@@ -101,11 +101,39 @@
             ETH address:<br>
             <input type="text" id="revoke_eth"><br>
           </form>
-          <button type="button" id="revoke_button">Add</button>
+          <button type="button" id="revoke_button">OK</button>
 
         </div>
       </div>
 
+    </div>
+
+    <div class="box row">
+      <h2>Access data</h2>
+      Enter an ETH address:
+      <div class="col-container">
+        <div class="col" style="width:90%">
+          <input type="text" style="width: 98%;">
+        </div>
+        <div class="col">
+          <button type="button" id="getdata_button" style="width: 100%">Get</button>
+        </div>
+      </div>
+
+      <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>CID</th>
+                <th>Size</th>
+              </tr>
+            </thead>
+            <tbody id="getDataloc">
+              <tr id="empty-row-get">
+                <td colspan="4">Enter an ETH address.</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 
   </main>
