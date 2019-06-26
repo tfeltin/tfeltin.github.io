@@ -58,3 +58,5 @@ function getData(){
     }
   });
 }
+
+document.getElementById("getdata_button").addEventListener("click", getData);
