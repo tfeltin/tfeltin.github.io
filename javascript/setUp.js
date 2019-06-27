@@ -7,7 +7,7 @@ const abi = [
 				"type": "string"
 			},
 			{
-				"name": "thirdParty",
+				"name": "_thirdParty",
 				"type": "address"
 			}
 		],
@@ -43,7 +43,7 @@ const abi = [
 				"type": "string"
 			},
 			{
-				"name": "userAddress",
+				"name": "_userAddress",
 				"type": "address"
 			}
 		],
@@ -99,12 +99,31 @@ const abi = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_userAddress",
+				"type": "address"
+			}
+		],
+		"name": "getUserData",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x8152bfcc8d0650be062cfcb5c3f4f2af0b3559cc");
+const contract = cont.at("0x0a45d61a2899b2e096d0becfa4cf81d275d8a12f");
 const node = new window.Ipfs();
 node.once('start', () => {
 	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);

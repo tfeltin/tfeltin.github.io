@@ -33,7 +33,7 @@ function downloadableFile_usr(name, hash, size, data) {
 function getData(){
   var flag = 0;
   const user_add = document.getElementById("user_getdata").value;
-  contract.getMyData.call(user_add, (e,userData) => {
+  contract.getUserData.call(user_add, (e,userData) => {
     if (!e){
       while(userData.length > 0){
         const hash = userData.substring(0,46);
