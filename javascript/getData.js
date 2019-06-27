@@ -26,7 +26,7 @@ function downloadableFile_usr(name, hash, size, data) {
   row.appendChild(sizeCell)
   row.appendChild(downloadCell)
 
-	$myDataloc.insertBefore(row, $getDataloc.firstChild);
+	$getDataloc.insertBefore(row, $getDataloc.firstChild);
 	document.getElementById('empty-row-get').style.display = 'none';
 }
 
