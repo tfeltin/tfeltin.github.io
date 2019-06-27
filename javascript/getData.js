@@ -54,10 +54,10 @@ function getData(){
         });
       }
       if (flag == 0){
-        document.getElementById("empty-row-get").innerHTML = "You don't have access to data owned by this address"
+        document.getElementById("error-loc-get").innerHTML = "You don't have access to this user's data";
+      } else {
+        console.log(e);
       }
-    } else {
-      console.log(e);
     }
   });
 }
