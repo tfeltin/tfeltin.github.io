@@ -37,7 +37,7 @@ function getData(){
     if (!e){
       while(userData.length > 0){
         const hash = userData.substring(0,46);
-        r = r.substring(46);
+        userData = userData.substring(46);
 
         contract.checkAccess.call(hash, (er,r) => {
           if (!er){
