@@ -29,11 +29,11 @@ contract AccessControl {
     }
 
     // Function called by service provider to add user data
-    function spAddData(string memory _ipfsAddress, address userAddress) public {
-        ownership[_ipfsAddress] = userAddress;
+    function spAddData(string memory _ipfsAddress, address _userAddress) public {
+        ownership[_ipfsAddress] = _userAddress;
         canAccess[_ipfsAddress][msg.sender] = true;
-        canAccess[_ipfsAddress][userAddress] = true;
-        myData[userAddress] = strConcat(myData[userAddress], _ipfsAddress);
+        canAccess[_ipfsAddress][_userAddress] = true;
+        myData[_userAddress] = strConcat(myData[_userAddress], _ipfsAddress);
     }
 
     // Check whether the sender can access the data at a certain address
@@ -42,9 +42,9 @@ contract AccessControl {
     }
 
     // User grants access to its data
-    function grantAccess(string memory _ipfsAddress, address thirdParty) public {
+    function grantAccess(string memory _ipfsAddress, address _thirdParty) public {
         require(msg.sender == ownership[_ipfsAddress]);
-        canAccess[_ipfsAddress][thirdParty] = true;
+        canAccess[_ipfsAddress][_thirdParty] = true;
     }
 
     // User revokes access to its data
@@ -56,6 +56,11 @@ contract AccessControl {
     // User asks for a view of all its data in the system
     function getMyData() public view returns (string memory){
         return myData[msg.sender];
+    }
+
+    // Get user's data
+    function getUserData(address _userAddress) public view returns (string memory){
+        return myData[_userAddress];
     }
 
 }
