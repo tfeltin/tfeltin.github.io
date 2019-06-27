@@ -42,7 +42,6 @@ function getData(){
         contract.checkAccess.call(hash, (er,r) => {
           if (!er){
             if (r == true){
-              console.log("file found")
               node.get(hash).then((files) => {
                 downloadableFile_usr(files[1].name, hash, files[1].size, files[1].content);
               });
