@@ -124,7 +124,18 @@ const abi = [
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at("0x0a45d61a2899b2e096d0becfa4cf81d275d8a12f");
-const node = new window.Ipfs();
+const options = {
+	EXPERIMENTAL: {
+		pubsub: true
+	},
+	repo: 'ipfs-' + Math.random(),
+	config: {
+		Addresses: {
+			Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
+		}
+	}
+}
+const node = new window.Ipfs(options);
 node.once('start', () => {
 	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
 });
