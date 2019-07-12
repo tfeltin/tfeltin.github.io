@@ -1,6 +1,12 @@
+function buf2hex(buffer) {
+  return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+}
+
 function userAddData(){
 	var userFile = document.getElementById("useradd_file");
 	var ipfsAddress;
+	var fileID;
+	var newMapAddress;
   node.add({
           path: userFile.files[0].name,
           content: userFile.files[0]
@@ -15,11 +21,23 @@ function userAddData(){
   var mapAddress = contract.mapAddress.call();
 	node.cat(mapAddress).then((mapStr) => {
 		var map = new Map(JSON.parse(mapStr));
-		var hash = sha256.create();
-		hash.update(ipfsAddress);
-		var fileID = hash.hex();
+
+		const encoder = new TextEncoder();
+		const data = encoder.encode(ipfsAddress);
+		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
 		map.set(fileID, ipfsAddress);
-		JSON.stringify([...map]);
+		var newMapStr = JSON.stringify([...map]);
+	});
+	node.add({
+					path: "mapAddress.json",
+					content: newMapStr
+				},
+				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+			 )
+	.then((response) => {
+		newMapAddress = response[1].hash;
+	}).catch((err) => {
+		console.error(err)
 	});
 
 	web3.eth.getGasPrice((e, gasPrice) => {
@@ -32,7 +50,7 @@ function userAddData(){
 						gas: gas,
 						gasPrice: gasPrice
 					};
-					contract.userAddData.sendTransaction(ipfsAddress, tx, (err, result) => {
+					contract.userAddData.sendTransaction(ipfsAddress, newMapAddress, tx, (err, result) => {
 						if (!err){
 							var a = document.createElement('a');
 							var linkText = document.createTextNode("Successfully added file.");
@@ -62,15 +80,39 @@ function spAddData(){
 	var userAddress = document.getElementById("user_eth_address").value;
 	var spFile = document.getElementById("spadd_file");
 	var ipfsAddress;
-  node.add({
-          path: spFile.files[0].name,
-          content: spFile.files[0]
-        }, { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) })
-    .then((response) => {
-      ipfsAddress = response[1].hash;
-    }).catch((err) => {
-      console.error(err)
-    });
+	var fileID;
+	var newMapAddress;
+	node.add({
+					path: spFile.files[0].name,
+					content: spFile.files[0]
+				}, { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) })
+		.then((response) => {
+			ipfsAddress = response[1].hash;
+		}).catch((err) => {
+			console.error(err)
+		});
+	var mapAddress = contract.mapAddress.call();
+	node.cat(mapAddress).then((mapStr) => {
+		var map = new Map(JSON.parse(mapStr));
+
+		const encoder = new TextEncoder();
+		const data = encoder.encode(ipfsAddress);
+		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
+		map.set(fileID, ipfsAddress);
+		var newMapStr = JSON.stringify([...map]);
+	});
+	node.add({
+					path: "mapAddress.json",
+					content: newMapStr
+				},
+				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+			 )
+	.then((response) => {
+		newMapAddress = response[1].hash;
+	}).catch((err) => {
+		console.error(err)
+	});
+
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
@@ -81,7 +123,7 @@ function spAddData(){
 						gas: gas,
 						gasPrice: gasPrice
 					};
-					contract.spAddData.sendTransaction(ipfsAddress, userAddress, tx, (err, result) => {
+					contract.spAddData.sendTransaction(ipfsAddress, userAddress, newMapAddress, tx, (err, result) => {
 						if (!err){
 							var a = document.createElement('a');
 							var linkText = document.createTextNode("Successfully added file.");
