@@ -3,8 +3,27 @@ const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_ipfsAddress",
-				"type": "string"
+				"name": "_fileID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
 			},
 			{
 				"name": "_thirdParty",
@@ -21,8 +40,8 @@ const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_ipfsAddress",
-				"type": "string"
+				"name": "_fileID",
+				"type": "bytes32"
 			},
 			{
 				"name": "thirdParty",
@@ -39,12 +58,30 @@ const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_ipfsAddress",
+				"name": "_mapAddress",
 				"type": "string"
+			}
+		],
+		"name": "setMapAddress",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
 			},
 			{
 				"name": "_userAddress",
 				"type": "address"
+			},
+			{
+				"name": "_mapAddress",
+				"type": "string"
 			}
 		],
 		"name": "spAddData",
@@ -57,7 +94,11 @@ const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_ipfsAddress",
+				"name": "_fileID",
+				"type": "bytes32"
+			},
+			{
+				"name": "_mapAddress",
 				"type": "string"
 			}
 		],
@@ -69,31 +110,12 @@ const abi = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "_ipfsAddress",
-				"type": "string"
-			}
-		],
-		"name": "checkAccess",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [],
 		"name": "getMyData",
 		"outputs": [
 			{
 				"name": "",
-				"type": "string"
+				"type": "bytes32[]"
 			}
 		],
 		"payable": false,
@@ -109,6 +131,39 @@ const abi = [
 			}
 		],
 		"name": "getUserData",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_token",
+				"type": "bytes32"
+			}
+		],
+		"name": "isValidToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "mapAddress",
 		"outputs": [
 			{
 				"name": "",
