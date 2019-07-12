@@ -12,6 +12,16 @@ function userAddData(){
     }).catch((err) => {
       console.error(err)
     });
+  var mapAddress = contract.mapAddress.call();
+	node.cat(mapAddress).then((mapStr) => {
+		var map = new Map(JSON.parse(mapStr));
+		var hash = sha256.create();
+		hash.update(ipfsAddress);
+		var fileID = hash.hex();
+		map.set(fileID, ipfsAddress);
+		JSON.stringify([...map]);
+	});
+
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];

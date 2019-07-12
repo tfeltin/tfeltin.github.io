@@ -2,64 +2,74 @@ pragma solidity >=0.4.2;
 
 contract AccessControl {
 
-    // Record of a user's data (ETH address => ipfs addresses)
-    mapping(address => string) private myData;
-    // Record of ipfs addresses and their associated content owner (the users) (ipfs address => ETH address)
-    mapping(string => address) private ownership;
-    // Record of ipfs addresses and who can access the data (ipfs address => ETH address => bool)
-    mapping(string => mapping(address => bool)) private canAccess;
+    // Record of a user's data (ETH address => fileID)
+    mapping(address => bytes32[]) private myData;
+    // Record of file IDs and their associated content owner (the users) (file ID => ETH address)
+    mapping(bytes32 => address) private ownership;
+    // Record of file IDs and who can access the data (file ID => ETH address => bool)
+    mapping(bytes32 => mapping(address => bool)) private canAccess;
+    // Record of token expiration times (token => time)
+    mapping(bytes32 => uint256) private expiration;
 
-    // Internal function for string concatenation
-    function strConcat(string memory _a, string memory _b) internal pure returns (string memory){
-        bytes memory _ba = bytes(_a);
-        bytes memory _bb = bytes(_b);
-        string memory ab = new string(_ba.length + _bb.length);
-        bytes memory bab = bytes(ab);
-        uint k = 0;
-        for (uint i = 0; i < _ba.length; i++) bab[k++] = _ba[i];
-        for (uint i = 0; i < _bb.length; i++) bab[k++] = _bb[i];
-        return string(bab);
-    }
+    //  ------------ ACCESS CONTROL ------------
 
     // Function called by user to add its own data
-    function userAddData(string memory _ipfsAddress) public {
-        ownership[_ipfsAddress] = msg.sender;
-        canAccess[_ipfsAddress][msg.sender] = true;
-        myData[msg.sender] = strConcat(myData[msg.sender], _ipfsAddress);
+    function userAddData(bytes32 _fileID) public {
+        ownership[_fileID] = msg.sender;
+        canAccess[_fileID][msg.sender] = true;
+        myData[msg.sender].push(_fileID);
     }
 
     // Function called by service provider to add user data
-    function spAddData(string memory _ipfsAddress, address _userAddress) public {
-        ownership[_ipfsAddress] = _userAddress;
-        canAccess[_ipfsAddress][msg.sender] = true;
-        canAccess[_ipfsAddress][_userAddress] = true;
-        myData[_userAddress] = strConcat(myData[_userAddress], _ipfsAddress);
-    }
-
-    // Check whether the sender can access the data at a certain address
-    function checkAccess(string memory _ipfsAddress) public view returns(bool){
-        return canAccess[_ipfsAddress][msg.sender];
+    function spAddData(bytes32 _fileID, address _userAddress) public {
+        ownership[_fileID] = _userAddress;
+        canAccess[_fileID][msg.sender] = true;
+        canAccess[_fileID][_userAddress] = true;
+        myData[_userAddress].push(_fileID);
     }
 
     // User grants access to its data
-    function grantAccess(string memory _ipfsAddress, address _thirdParty) public {
-        require(msg.sender == ownership[_ipfsAddress]);
-        canAccess[_ipfsAddress][_thirdParty] = true;
+    function grantAccess(bytes32 _fileID, address _thirdParty) public {
+        require(msg.sender == ownership[_fileID]);
+        canAccess[_fileID][_thirdParty] = true;
     }
 
     // User revokes access to its data
-    function revokeAccess(string memory _ipfsAddress, address thirdParty) public {
-        require(msg.sender == ownership[_ipfsAddress]);
-        canAccess[_ipfsAddress][thirdParty] = false;
+    function revokeAccess(bytes32 _fileID, address thirdParty) public {
+        require(msg.sender == ownership[_fileID]);
+        canAccess[_fileID][thirdParty] = false;
     }
 
+    // ------------- ACCESS TOKENS -------------
+
+    // Pseudo random number genrator
+    function random(bytes32 _fileID) internal view returns (bytes32) {
+        return keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, _fileID));
+    }
+
+    // Generate access token to a specified file
+    function getToken(bytes32 _fileID) public returns(bytes32){
+        if (canAccess[_fileID][msg.sender]){
+            bytes32 token = random(_fileID);
+            expiration[token] = block.timestamp + 30; // tokens last 30 seconds
+            return token;
+        }
+    }
+
+    // Check validity of token
+    function isValidToken(bytes32 _token) public view returns(bool){
+        return (block.timestamp < expiration[_token]);
+    }
+
+    // ----------------- VIEW -----------------
+
     // User asks for a view of all its data in the system
-    function getMyData() public view returns (string memory){
+    function getMyData() public view returns (bytes32[] memory){
         return myData[msg.sender];
     }
 
     // Get user's data
-    function getUserData(address _userAddress) public view returns (string memory){
+    function getUserData(address _userAddress) public view returns (bytes32[] memory){
         return myData[_userAddress];
     }
 

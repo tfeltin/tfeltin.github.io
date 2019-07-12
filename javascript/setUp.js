@@ -123,7 +123,7 @@ const abi = [
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x0a45d61a2899b2e096d0becfa4cf81d275d8a12f");
+const contract = cont.at("0xd00a5d8f7450db84150bf9e5cdf9c038302c3293");
 const options = {
 	EXPERIMENTAL: {
 		pubsub: true
@@ -140,30 +140,18 @@ node.once('start', () => {
 	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
 });
 
-function downloadableFile(name, hash, size, data) {
-  const file = new window.Blob([data], { type: 'application/octet-binary' })
-  const url = window.URL.createObjectURL(file)
+function downloadableFile(fileID) {
   const row = document.createElement('tr')
 
-  const nameCell = document.createElement('td')
-  nameCell.innerHTML = name
-
-  const hashCell = document.createElement('td')
-  hashCell.innerHTML = hash
-
-  const sizeCell = document.createElement('td')
-  sizeCell.innerText = size
+  const fileIDCell = document.createElement('td')
+  fileIDCell.innerHTML = fileID
 
   const downloadCell = document.createElement('td')
   const link = document.createElement('a')
-  link.setAttribute('href', url)
-  link.setAttribute('download', name)
   link.innerHTML = '<img width=20 class="table-action" src="assets/download.svg" alt="Download" />'
   downloadCell.appendChild(link)
 
-  row.appendChild(nameCell)
-  row.appendChild(hashCell)
-  row.appendChild(sizeCell)
+  row.appendChild(fileIDCell)
   row.appendChild(downloadCell)
 
 	$myDataloc.insertBefore(row, $myDataloc.firstChild);
@@ -180,14 +168,10 @@ async function setup(){
     document.getElementById('address').innerHTML = web3.eth.defaultAccount;
     contract.getMyData.call((e,r) => {
       if (!e){
-        while(r.length > 0){
-          const hash = r.substring(0,46);
-          r = r.substring(46);
-
-					node.get(hash).then((files) => {
-						downloadableFile(files[1].name, hash, files[1].size, files[1].content);
-					});
-
+        for (i=0;i<r.length;i++){
+//					node.get(hash).then((files) => {
+					downloadableFile(r[i]);
+//					});
         }
       } else {
         console.log(e);
