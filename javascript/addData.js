@@ -9,6 +9,7 @@ function userAddData(){
 	var ipfsAddress;
 	var fileID;
 	var newMapAddress;
+  var newMapStr;
   var mapAddress;
 
   // 1 - add file to IPFS
@@ -20,6 +21,7 @@ function userAddData(){
 			 )
     .then((response) => {
       ipfsAddress = response[1].hash;
+      console.log(ipfsAddress);
     }).catch((err) => {
       console.error(err)
     });
@@ -28,6 +30,7 @@ function userAddData(){
   contract.mapAddress.call((e,ma) => {
     if(!e){
       mapAddress = ma;
+      console.log(ma);
     }else{
       console.log(e);
     }
@@ -40,7 +43,7 @@ function userAddData(){
 		const data = encoder.encode(ipfsAddress);
 		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
 		map.set(fileID, ipfsAddress);
-		var newMapStr = JSON.stringify([...map]);
+		newMapStr = JSON.stringify([...map]);
 	});
 	node.add({
 					path: "mapAddress.json",
@@ -50,6 +53,7 @@ function userAddData(){
     )
 	.then((response) => {
 		newMapAddress = response[1].hash;
+    console.log(newMapAddress);
 	}).catch((err) => {
 		console.error(err)
 	});
@@ -98,6 +102,7 @@ function spAddData(){
 	var ipfsAddress;
 	var fileID;
 	var newMapAddress;
+  var newMapStr;
   var mapAddress;
 
   // 1 - add file to IPFS
@@ -127,7 +132,7 @@ function spAddData(){
 		const data = encoder.encode(ipfsAddress);
 		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
 		map.set(fileID, ipfsAddress);
-		var newMapStr = JSON.stringify([...map]);
+		newMapStr = JSON.stringify([...map]);
 	});
 	node.add({
 					path: "mapAddress.json",
