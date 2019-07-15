@@ -62,7 +62,7 @@ function userAddData(){
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			contract.userAddData.estimateGas(ipfsAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
+			contract.userAddData.estimateGas(ipfsAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
 				if (!er){
 					var tx = {
 						from: web3.eth.defaultAccount,
@@ -150,7 +150,7 @@ function spAddData(){
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			contract.spAddData.estimateGas(ipfsAddress, userAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
+			contract.spAddData.estimateGas(ipfsAddress, userAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
 				if (!er){
 					const tx = {
 						from: web3.eth.defaultAccount,
