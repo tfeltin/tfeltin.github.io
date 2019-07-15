@@ -6,7 +6,6 @@ function buf2hex(buffer) {
 // USER ADDS FILE TO SYSTEM
 function userAddData(){
 	var userFile = document.getElementById("useradd_file");
-  var fileID;
 
   // 1 - add file to IPFS
   node.add({
