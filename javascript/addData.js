@@ -6,6 +6,7 @@ function buf2hex(buffer) {
 // USER ADDS FILE TO SYSTEM
 function userAddData(){
 	var userFile = document.getElementById("useradd_file");
+  var fileID;
 
   // 1 - add file to IPFS
   node.add({
@@ -27,58 +28,60 @@ function userAddData(){
         		var map = new Map(JSON.parse(mapStr[1].content.toString()));
         		const encoder = new TextEncoder();
         		const data = encoder.encode(ipfsAddress);
-        		window.crypto.subtle.digest("SHA-256", data).then((fid) => {var fileID = buf2hex(fid);});
-        		map.set(fileID, ipfsAddress);
-        		var newMapStr = JSON.stringify([...map]);
+        		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
+              var fileID = buf2hex(fid);
+              map.set(fileID, ipfsAddress);
+          		var newMapStr = JSON.stringify([...map]);
 
-            node.add({
-          					path: "mapAddress.json",
-          					content: newMapStr
-          				},
-                { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
-              )
-          	.then((response) => {
-          		var newMapAddress = response[1].hash;
-              console.log(newMapAddress);
+              node.add({
+            					path: "mapAddress.json",
+            					content: newMapStr
+            				},
+                  { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+                )
+            	.then((response) => {
+            		var newMapAddress = response[1].hash;
+                console.log(newMapAddress);
 
-              // 4 - record the file in the smart contract
-            	web3.eth.getGasPrice((e, gasPrice) => {
-            		if (!e){
-            			gasPrice = gasPrice.c[0];
-            			contract.userAddData.estimateGas(ipfsAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
-            				if (!er){
-            					var tx = {
-            						from: web3.eth.defaultAccount,
-            						gas: gas,
-            						gasPrice: gasPrice
-            					};
-            					contract.userAddData.sendTransaction(ipfsAddress, newMapAddress, tx, (err, result) => {
-            						if (!err){
-            							var a = document.createElement('a');
-            							var linkText = document.createTextNode("Successfully added file.");
-            							a.appendChild(linkText);
-            							a.style.color = 'green';
-            							document.getElementById("useradd_form").appendChild(a);
-            							document.getElementById("useradd_form").reset();
-            						} else {
-            							console.log("Error in transaction");
-            							console.log(err);
-            						}
-            					});
-            				} else {
-            					console.log("Error while estimating gas");
-            					console.log(er);
-            				}
-            			});
-            		} else {
-            			console.log("Error while estimating gas price");
-            			console.log(e);
-            		}
+                // 4 - record the file in the smart contract
+              	web3.eth.getGasPrice((e, gasPrice) => {
+              		if (!e){
+              			gasPrice = gasPrice.c[0];
+              			contract.userAddData.estimateGas(ipfsAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
+              				if (!er){
+              					var tx = {
+              						from: web3.eth.defaultAccount,
+              						gas: gas,
+              						gasPrice: gasPrice
+              					};
+              					contract.userAddData.sendTransaction(ipfsAddress, newMapAddress, tx, (err, result) => {
+              						if (!err){
+              							var a = document.createElement('a');
+              							var linkText = document.createTextNode("Successfully added file.");
+              							a.appendChild(linkText);
+              							a.style.color = 'green';
+              							document.getElementById("useradd_form").appendChild(a);
+              							document.getElementById("useradd_form").reset();
+              						} else {
+              							console.log("Error in transaction");
+              							console.log(err);
+              						}
+              					});
+              				} else {
+              					console.log("Error while estimating gas");
+              					console.log(er);
+              				}
+              			});
+              		} else {
+              			console.log("Error while estimating gas price");
+              			console.log(e);
+              		}
+              	});
+
+            	}).catch((err) => {
+            		console.error(err)
             	});
-
-          	}).catch((err) => {
-          		console.error(err)
-          	});
+            });
 
         	});
 
