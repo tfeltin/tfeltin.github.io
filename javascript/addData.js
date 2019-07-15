@@ -34,8 +34,8 @@ function userAddData(){
   });
 
   // 3 - get mapping from IPFS and update it
-	node.cat(mapAddress).then((mapStr) => {
-		var map = new Map(JSON.parse(mapStr));
+	node.get(mapAddress).then((mapStr) => {
+		var map = new Map(JSON.parse(mapStr[1].content.toString()));
 		const encoder = new TextEncoder();
 		const data = encoder.encode(ipfsAddress);
 		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
@@ -46,8 +46,8 @@ function userAddData(){
 					path: "mapAddress.json",
 					content: newMapStr
 				},
-				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
-			 )
+      { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+    )
 	.then((response) => {
 		newMapAddress = response[1].hash;
 	}).catch((err) => {
@@ -121,8 +121,8 @@ function spAddData(){
   });
 
   // 3 - get mapping from IPFS and update it
-	node.cat(mapAddress).then((mapStr) => {
-		var map = new Map(JSON.parse(mapStr));
+  node.get(mapAddress).then((mapStr) => {
+		var map = new Map(JSON.parse(mapStr[1].content.toString()));
 		const encoder = new TextEncoder();
 		const data = encoder.encode(ipfsAddress);
 		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
