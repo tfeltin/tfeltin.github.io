@@ -1,12 +1,17 @@
+// Internal function to convert array to hex string
 function buf2hex(buffer) {
   return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
 
+// USER ADDS FILE TO SYSTEM
 function userAddData(){
 	var userFile = document.getElementById("useradd_file");
 	var ipfsAddress;
 	var fileID;
 	var newMapAddress;
+  var mapAddress;
+
+  // 1 - add file to IPFS
   node.add({
           path: userFile.files[0].name,
           content: userFile.files[0]
@@ -18,10 +23,19 @@ function userAddData(){
     }).catch((err) => {
       console.error(err)
     });
-  var mapAddress = contract.mapAddress.call();
+
+  // 2 - get address of mapping from contract
+  contract.mapAddress.call((e,ma) => {
+    if(!e){
+      mapAddress = ma;
+    }else{
+      console.log(e);
+    }
+  });
+
+  // 3 - get mapping from IPFS and update it
 	node.cat(mapAddress).then((mapStr) => {
 		var map = new Map(JSON.parse(mapStr));
-
 		const encoder = new TextEncoder();
 		const data = encoder.encode(ipfsAddress);
 		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
@@ -40,6 +54,7 @@ function userAddData(){
 		console.error(err)
 	});
 
+  // 4 - record the file in the smart contract
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
@@ -76,12 +91,16 @@ function userAddData(){
 }
 
 
+// SERVICE PROVVIDER ADDS USER OWNED FILE IN SYSTEM
 function spAddData(){
 	var userAddress = document.getElementById("user_eth_address").value;
 	var spFile = document.getElementById("spadd_file");
 	var ipfsAddress;
 	var fileID;
 	var newMapAddress;
+  var mapAddress;
+
+  // 1 - add file to IPFS
 	node.add({
 					path: spFile.files[0].name,
 					content: spFile.files[0]
@@ -91,10 +110,19 @@ function spAddData(){
 		}).catch((err) => {
 			console.error(err)
 		});
-	var mapAddress = contract.mapAddress.call();
+
+  // 2 - get address of mapping from contract
+  contract.mapAddress.call((e,ma) => {
+    if(!e){
+      mapAddress = ma;
+    }else{
+      console.log(e);
+    }
+  });
+
+  // 3 - get mapping from IPFS and update it
 	node.cat(mapAddress).then((mapStr) => {
 		var map = new Map(JSON.parse(mapStr));
-
 		const encoder = new TextEncoder();
 		const data = encoder.encode(ipfsAddress);
 		window.crypto.subtle.digest("SHA-256", data).then((fid) => fileID = buf2hex(fid));
@@ -113,6 +141,7 @@ function spAddData(){
 		console.error(err)
 	});
 
+  // 4 - record the file in the smart contract
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
