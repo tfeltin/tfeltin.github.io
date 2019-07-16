@@ -14,7 +14,8 @@ function userAddData(){
         },
 				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
 			 )
-    .then((ipfsAddress) => {
+    .then((res) => {
+      var ipfsAddress = res[1].hash;
       console.log(ipfsAddress);
 
       // 2 - get address of mapping from contract
@@ -31,8 +32,6 @@ function userAddData(){
         		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
               var fileID = buf2hex(fid);
               map.set(fileID, ipfsAddress);
-              console.log("file ID = ", fileID);
-              console.log("ipfsAddress = ", ipfsAddress);
               var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
             					path: newMapFile.name,
