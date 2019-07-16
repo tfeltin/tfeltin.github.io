@@ -31,6 +31,7 @@ function userAddData(){
         		const data = encoder.encode(ipfsAddress);
         		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
               var fileID = buf2hex(fid);
+              console.log(fileID);
               map.set(fileID, ipfsAddress);
               var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
@@ -47,14 +48,14 @@ function userAddData(){
               	web3.eth.getGasPrice((e, gasPrice) => {
               		if (!e){
               			gasPrice = gasPrice.c[0];
-              			contract.userAddData.estimateGas(ipfsAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
+              			contract.userAddData.estimateGas(fileID, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
               				if (!er){
               					var tx = {
               						from: web3.eth.defaultAccount,
               						gas: gas,
               						gasPrice: gasPrice
               					};
-              					contract.userAddData.sendTransaction(ipfsAddress, newMapAddress, tx, (err, result) => {
+              					contract.userAddData.sendTransaction(fileID, newMapAddress, tx, (err, result) => {
               						if (!err){
               							var a = document.createElement('a');
               							var linkText = document.createTextNode("Successfully added file.");
@@ -108,7 +109,8 @@ function spAddData(){
         },
 				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
 			 )
-    .then((ipfsAddress) => {
+    .then((res) => {
+      var ipfsAddress = res[1].hash;
       console.log(ipfsAddress);
 
       // 2 - get address of mapping from contract
@@ -139,14 +141,14 @@ function spAddData(){
               	web3.eth.getGasPrice((e, gasPrice) => {
               		if (!e){
               			gasPrice = gasPrice.c[0];
-              			contract.spAddData.estimateGas(ipfsAddress, userAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
+              			contract.spAddData.estimateGas(fileID, userAddress, newMapAddress, {from: web3.eth.defaultAccount}, (er, gas) => {
               				if (!er){
               					var tx = {
               						from: web3.eth.defaultAccount,
               						gas: gas,
               						gasPrice: gasPrice
               					};
-              					contract.spAddData.sendTransaction(ipfsAddress, userAddress, newMapAddress, tx, (err, result) => {
+              					contract.spAddData.sendTransaction(fileID, userAddress, newMapAddress, tx, (err, result) => {
               						if (!err){
               							var a = document.createElement('a');
               							var linkText = document.createTextNode("Successfully added file.");
