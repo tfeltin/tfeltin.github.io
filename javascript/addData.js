@@ -26,11 +26,14 @@ function userAddData(){
         	node.get(mapAddress).then((mapStr) => {
         		var map = new Map(JSON.parse(mapStr[1].content.toString()));
         		const encoder = new TextEncoder();
+            console.log("before = ", ipfsAddress);
         		const data = encoder.encode(ipfsAddress);
         		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
               var fileID = buf2hex(fid);
               map.set(fileID, ipfsAddress);
-              var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json")
+              console.log("file ID = ", fileID);
+              console.log("ipfsAddress = ", ipfsAddress);
+              var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
             					path: newMapFile.name,
             					content: newMapFile
@@ -122,7 +125,7 @@ function spAddData(){
         		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
               var fileID = buf2hex(fid);
               map.set(fileID, ipfsAddress);
-              var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json")
+              var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
             					path: newMapFile.name,
             					content: newMapFile
