@@ -12,37 +12,36 @@ function userAddData(){
           path: userFile.files[0].name,
           content: userFile.files[0]
         },
-				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+				 { wrapWithDirectory: true }
 			 )
     .then((res) => {
       var ipfsAddress = res[1].hash;
-      console.log(ipfsAddress);
+      console.log("Added file to IPFS at : ", ipfsAddress);
 
       // 2 - get address of mapping from contract
       contract.mapAddress.call((e,mapAddress) => {
         if(!e){
-          console.log(mapAddress);
+          console.log("Previous map address : ", mapAddress);
 
           // 3 - get mapping from IPFS and update it
         	node.get(mapAddress).then((mapStr) => {
         		var map = new Map(JSON.parse(mapStr[1].content.toString()));
         		const encoder = new TextEncoder();
-            console.log("before = ", ipfsAddress);
         		const data = encoder.encode(ipfsAddress);
         		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
               var fileID = '0x' + buf2hex(fid);
-              console.log(fileID);
+              console.log("New file ID : ", fileID);
               map.set(fileID, ipfsAddress);
               var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
             					path: newMapFile.name,
             					content: newMapFile
             				},
-                  { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+                  { wrapWithDirectory: true }
                 )
             	.then((response) => {
             		var newMapAddress = response[1].hash;
-                console.log(newMapAddress);
+                console.log("New map address : ", newMapAddress);
 
                 // 4 - record the file in the smart contract
               	web3.eth.getGasPrice((e, gasPrice) => {
@@ -107,16 +106,16 @@ function spAddData(){
           path: spFile.files[0].name,
           content: spFile.files[0]
         },
-				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+				 { wrapWithDirectory: true }
 			 )
     .then((res) => {
       var ipfsAddress = res[1].hash;
-      console.log(ipfsAddress);
+      console.log("Added file to IPFS at : ", ipfsAddress);
 
       // 2 - get address of mapping from contract
       contract.mapAddress.call((e,mapAddress) => {
         if(!e){
-          console.log(mapAddress);
+          console.log("Previous map address : ", mapAddress);
 
           // 3 - get mapping from IPFS and update it
         	node.get(mapAddress).then((mapStr) => {
@@ -126,16 +125,17 @@ function spAddData(){
         		window.crypto.subtle.digest("MD5", data).then((fid) => {
               var fileID = '0x' + buf2hex(fid);
               map.set(fileID, ipfsAddress);
+              console.log("New file ID : ", fileID);
               var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
             					path: newMapFile.name,
             					content: newMapFile
             				},
-                  { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
+                  { wrapWithDirectory: true }
                 )
             	.then((response) => {
             		var newMapAddress = response[1].hash;
-                console.log(newMapAddress);
+                console.log("New map address : ", newMapAddress);
 
                 // 4 - record the file in the smart contract
               	web3.eth.getGasPrice((e, gasPrice) => {
