@@ -11,21 +11,30 @@ contract AccessControl {
     // Record of token expiration times (token => time)
     mapping(bytes32 => uint256) private expiration;
 
-    //  ------------ ACCESS CONTROL ------------
+    // IPFS address of map from fileIDs to IPFS addresses
+    string public mapAddress;
+
+    function setMapAddress(string memory _mapAddress) public{
+        mapAddress = _mapAddress;
+    }
+
+    // ------------ ACCESS CONTROL ------------
 
     // Function called by user to add its own data
-    function userAddData(bytes32 _fileID) public {
+    function userAddData(bytes32 _fileID, string memory _mapAddress) public {
         ownership[_fileID] = msg.sender;
         canAccess[_fileID][msg.sender] = true;
         myData[msg.sender].push(_fileID);
+        mapAddress = _mapAddress;
     }
 
     // Function called by service provider to add user data
-    function spAddData(bytes32 _fileID, address _userAddress) public {
+    function spAddData(bytes32 _fileID, address _userAddress, string memory _mapAddress) public {
         ownership[_fileID] = _userAddress;
         canAccess[_fileID][msg.sender] = true;
         canAccess[_fileID][_userAddress] = true;
         myData[_userAddress].push(_fileID);
+        mapAddress = _mapAddress;
     }
 
     // User grants access to its data
