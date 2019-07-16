@@ -94,7 +94,7 @@ function userAddData(){
 }
 
 
-// SERVICE PROVVIDER ADDS USER OWNED FILE IN SYSTEM
+// SERVICE PROVIDER ADDS USER OWNED FILE IN SYSTEM
 function spAddData(){
 	var userAddress = document.getElementById("user_eth_address").value;
 	var spFile = document.getElementById("spadd_file");
