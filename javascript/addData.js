@@ -15,7 +15,7 @@ function userAddData(){
 				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
 			 )
     .then((res) => {
-      var ipfsAddress = '0x' + res[1].hash;
+      var ipfsAddress = res[1].hash;
       console.log(ipfsAddress);
 
       // 2 - get address of mapping from contract
@@ -30,7 +30,7 @@ function userAddData(){
             console.log("before = ", ipfsAddress);
         		const data = encoder.encode(ipfsAddress);
         		window.crypto.subtle.digest("SHA-256", data).then((fid) => {
-              var fileID = buf2hex(fid);
+              var fileID = '0x' + buf2hex(fid);
               console.log(fileID);
               map.set(fileID, ipfsAddress);
               var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
@@ -110,7 +110,7 @@ function spAddData(){
 				 { wrapWithDirectory: true, progress: (prog) => console.log(`received: ${prog}`) }
 			 )
     .then((res) => {
-      var ipfsAddress = '0x' + res[1].hash;
+      var ipfsAddress = res[1].hash;
       console.log(ipfsAddress);
 
       // 2 - get address of mapping from contract
@@ -124,7 +124,7 @@ function spAddData(){
         		const encoder = new TextEncoder();
         		const data = encoder.encode(ipfsAddress);
         		window.crypto.subtle.digest("MD5", data).then((fid) => {
-              var fileID = buf2hex(fid);
+              var fileID = '0x' + buf2hex(fid);
               map.set(fileID, ipfsAddress);
               var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
               node.add({
