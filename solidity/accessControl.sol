@@ -8,34 +8,47 @@ contract AccessControl {
     mapping(bytes32 => address) private ownership;
     // Record of file IDs and who can access the data (file ID => ETH address => bool)
     mapping(bytes32 => mapping(address => bool)) private canAccess;
+    // Pending changes in mapAddress
+    mapping(address => bytes32) private pendingMap;
     // Record of token expiration times (token => time)
     mapping(bytes32 => uint256) private expiration;
+    mapping(bytes32 => bytes32) private token2fileID;
 
-    // IPFS address of map from fileIDs to IPFS addresses
-    string public mapAddress;
+    // IPFS address of map from file IDs to IPFS addresses
+    string private mapAddress = "Qmdcdys5PNRvhDwBZMcKTsbjQMhfeGC4ZbhJsjeJcsYYZj";
 
-    function setMapAddress(string memory _mapAddress) public{
-        mapAddress = _mapAddress;
+
+    // ---------- ADDING DATA ----------
+
+    // Register file ID to add in order to receive map address
+    function getMapAddress(bytes32 _fileID) public returns (string memory){
+        pendingMap[msg.sender] = _fileID;
+        return mapAddress;
     }
 
-    // ------------ ACCESS CONTROL ------------
-
-    // Function called by user to add its own data
+    // Add previously registered user data and update the map address (for users)
     function userAddData(bytes32 _fileID, string memory _mapAddress) public {
+        require(pendingMap[msg.sender] == _fileID);
+        pendingMap[msg.sender] = 0x0;
         ownership[_fileID] = msg.sender;
         canAccess[_fileID][msg.sender] = true;
         myData[msg.sender].push(_fileID);
         mapAddress = _mapAddress;
     }
 
-    // Function called by service provider to add user data
+    // Add previously registered user data and update the map address (for service providers)
     function spAddData(bytes32 _fileID, address _userAddress, string memory _mapAddress) public {
+        require(pendingMap[msg.sender] == _fileID);
+        pendingMap[msg.sender] = 0x0;
         ownership[_fileID] = _userAddress;
         canAccess[_fileID][msg.sender] = true;
         canAccess[_fileID][_userAddress] = true;
         myData[_userAddress].push(_fileID);
         mapAddress = _mapAddress;
     }
+
+
+    // ------------ ACCESS CONTROL ------------
 
     // User grants access to its data
     function grantAccess(bytes32 _fileID, address _thirdParty) public {
@@ -49,6 +62,7 @@ contract AccessControl {
         canAccess[_fileID][thirdParty] = false;
     }
 
+
     // ------------- ACCESS TOKENS -------------
 
     // Pseudo random number genrator
@@ -58,17 +72,22 @@ contract AccessControl {
 
     // Generate access token to a specified file
     function getToken(bytes32 _fileID) public returns(bytes32){
-        if (canAccess[_fileID][msg.sender]){
-            bytes32 token = random(_fileID);
-            expiration[token] = block.timestamp + 30; // tokens last 30 seconds
-            return token;
-        }
+        require (canAccess[_fileID][msg.sender]);
+        bytes32 token = random(_fileID);
+        expiration[token] = block.timestamp + 30; // tokens last 30 seconds
+        token2fileID[token] = _fileID;
+        return token;
     }
 
-    // Check validity of token
-    function isValidToken(bytes32 _token) public view returns(bool){
-        return (block.timestamp < expiration[_token]);
+    // Use token to have access to the map address
+    function validateToken(bytes32 _token, bytes32 _fileID) public returns(string memory){
+        require (block.timestamp < expiration[_token]);
+        require (token2fileID[_token] == _fileID);
+        expiration[_token] = 0;
+        token2fileID[_token] = 0x0;
+        return mapAddress;
     }
+
 
     // ----------------- VIEW -----------------
 
@@ -81,5 +100,4 @@ contract AccessControl {
     function getUserData(address _userAddress) public view returns (bytes32[] memory){
         return myData[_userAddress];
     }
-
 }

@@ -196,17 +196,28 @@ node.once('start', () => {
 });
 
 function downloadableFile(fileID) {
+
+  const file = new window.Blob([data], { type: 'application/octet-binary' })
+  const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
 
-  const fileIDCell = document.createElement('td')
-  fileIDCell.innerHTML = fileID
-
+  const nameCell = document.createElement('td')
+  nameCell.innerHTML = name
+  const hashCell = document.createElement('td')
+  hashCell.innerHTML = hash
+  const sizeCell = document.createElement('td')
+  sizeCell.innerText = size
   const downloadCell = document.createElement('td')
-  const link = document.createElement('a')
-  link.innerHTML = '<img width=20 class="table-action" src="assets/download.svg" alt="Download" />'
-  downloadCell.appendChild(link)
 
-  row.appendChild(fileIDCell)
+  const link = document.createElement('a')
+  link.setAttribute('href', url)
+  link.setAttribute('download', name)
+  link.innerHTML = '<img width=20 class="table-action" src="assets/download.svg" alt="Download" />'
+
+  downloadCell.appendChild(link)
+  row.appendChild(nameCell)
+  row.appendChild(hashCell)
+  row.appendChild(sizeCell)
   row.appendChild(downloadCell)
 
 	$myDataloc.insertBefore(row, $myDataloc.firstChild);
@@ -221,17 +232,24 @@ async function setup(){
     await ethereum.enable();
     web3.eth.defaultAccount = web3.eth.accounts[0];
     document.getElementById('address').innerHTML = web3.eth.defaultAccount;
-    contract.getMyData.call((e,r) => {
+    contract.getMyData.call((e,myData) => {
       if (!e){
-        for (i=0;i<r.length;i++){
-//					node.get(hash).then((files) => {
-					downloadableFile(r[i]);
-//					});
-        }
+				contract.mapAddress.call((er,mapAddress) => {
+					if(!er){
+						node.get(mapAddress).then((mapStr) => {
+							var map = new Map(JSON.parse(mapStr[1].content.toString()));
+							for (i=0;i<myData.length;i++){
+								downloadableFile(map.get(myData[i]));
+			        }
+						});
+					}else{
+						console.log(er);
+					}
+				});
       } else {
         console.log(e);
       }
-    })
+    });
   } else {
     web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/87c66a413df1470abf86a50b4a8bf555"));
   }
