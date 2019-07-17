@@ -80,7 +80,7 @@ function userAddData(){
                     		console.error(node_err)
                     	});
                     }).catch((map_err) => {
-                      console.console.log(map_err);
+                      console.log(map_err);
                     });
                   } else {
                     console.log("Error in transaction");
@@ -182,7 +182,7 @@ function spAddData(){
                     		console.error(node_err)
                     	});
                     }).catch((map_err) => {
-                      console.console.log(map_err);
+                      console.log(map_err);
                     });
                   } else {
                     console.log("Error in transaction");
