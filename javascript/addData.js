@@ -53,13 +53,16 @@ function userAddData(){
                         		var newMapAddress = response[1].hash;
                             console.log("New map address : ", newMapAddress);
                             // 5 - finish adding the file to the smart contract and update the map adddress on the blockchain
-                      			contract.userAddData.estimateGas(fileID, newMapAddress, {from: web3.eth.defaultAccount}, (er2, gas2) => {
+                            console.log(fileID,newMapAddress);
+                            contract.userAddData.estimateGas(fileID, newMapAddress, {from: web3.eth.defaultAccount}, (er2, gas2) => {
                       				if (!er2){
+                                console.log(gas2, gasPrice);
                       					var tx = {
                       						from: web3.eth.defaultAccount,
                       						gas: gas2,
                       						gasPrice: gasPrice
                       					};
+                                console.log(fileID,newMapAddress);
                       					contract.userAddData.sendTransaction(fileID, newMapAddress, tx, (error, result) => {
                       						if (!error){
                       							var a = document.createElement('a');
