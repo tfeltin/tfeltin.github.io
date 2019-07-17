@@ -32,33 +32,44 @@ function downloadableFile_usr(name, hash, size, data) {
 
 function getData(){
   var flag = 0;
-  const user_add = document.getElementById("user_getdata").value;
-  contract.getUserData.call(user_add, (e,userData) => {
-    if (!e){
-      while(userData.length > 0){
-        const hash = userData.substring(0,46);
-        userData = userData.substring(46);
+  const fileID = document.getElementById("user_getdata").value;
 
-        contract.checkAccess.call(hash, (er,r) => {
-          if (!er){
-            if (r == true){
-              node.get(hash).then((files) => {
-                downloadableFile_usr(files[1].name, hash, files[1].size, files[1].content);
+  web3.eth.getGasPrice((e, gasPrice) => {
+    if (!e){
+      gasPrice = gasPrice.c[0];
+      contract.getToken.estimateGas(fileID, {from: web3.eth.defaultAccount}, (er, gas) => {
+        if(!er){
+          var tx = {
+            from: web3.eth.defaultAccount,
+            gas: gas,
+            gasPrice: gasPrice
+          };
+          contract.getToken.sendTransaction(fileID, tx, (err, result) => {
+            if(!err){
+              contract.getTokenCall.call(fileID, (call_err, token) => {
+                if(!call_err){
+                  console.log("Token : ", token);
+                }else{
+                  console.log(call_err);
+                }
               });
-              flag = 1;
+            }else{
+              console.log(err);
             }
-          } else {
-            console.log(er);
-          }
-        });
-      }
-      if (flag == 0){
-        document.getElementById("error-loc-get").innerHTML = "You don't have access to this user's data";
-      } else {
-        console.log(e);
-      }
+          })
+        }else{
+          console.log(er);
+        }
+      });
+    }else{
+      console.log(e);
     }
   });
+
+
+
+
+
 }
 
 document.getElementById("getdata_button").addEventListener("click", getData);
