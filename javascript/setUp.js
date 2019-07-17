@@ -7,6 +7,25 @@ const abi = [
 				"type": "bytes32"
 			}
 		],
+		"name": "getMapAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
+			}
+		],
 		"name": "getToken",
 		"outputs": [
 			{
@@ -58,20 +77,6 @@ const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_mapAddress",
-				"type": "string"
-			}
-		],
-		"name": "setMapAddress",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
 				"name": "_fileID",
 				"type": "bytes32"
 			},
@@ -109,6 +114,40 @@ const abi = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_token",
+				"type": "bytes32"
+			},
+			{
+				"name": "_fileID",
+				"type": "bytes32"
+			}
+		],
+		"name": "validateToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_mapAddress",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "getMyData",
@@ -140,45 +179,12 @@ const abi = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_token",
-				"type": "bytes32"
-			}
-		],
-		"name": "isValidToken",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "mapAddress",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x6d7f251ed3f005f9dc15a6e71b14a74dc5a99515");
+const contract = cont.at("0x1eaf361597bd88a38c38059e933aad122f166095");
 const options = {
 	EXPERIMENTAL: {
 		pubsub: true
