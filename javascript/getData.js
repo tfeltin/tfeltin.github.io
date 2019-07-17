@@ -65,11 +65,6 @@ function getData(){
       console.log(e);
     }
   });
-
-
-
-
-
 }
 
 document.getElementById("getdata_button").addEventListener("click", getData);
