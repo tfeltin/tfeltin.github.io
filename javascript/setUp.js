@@ -241,7 +241,7 @@ async function setup(){
     contract.getMyData.call((e,myData) => {
       if (!e){
 				for (i=0;i<myData.length;i++){
-					downloadableFile(map.get(myData[i]));
+					downloadableFile(myData[i]);
         }
 			}else{
 				console.log(e);
