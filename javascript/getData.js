@@ -67,4 +67,39 @@ function getData(){
   });
 }
 
+
+function getData2(token, fileID){
+  web3.eth.getGasPrice((e, gasPrice) => {
+    if (!e){
+      gasPrice = gasPrice.c[0];
+      contract.validateToken.estimateGas(token, fileID, {from: web3.eth.defaultAccount}, (er, gas) => {
+        if(!er){
+          var tx = {
+            from: web3.eth.defaultAccount,
+            gas: gas,
+            gasPrice: gasPrice
+          };
+          contract.validateToken.sendTransaction(token, fileID, tx, (err, result) => {
+            if(!err){
+              contract.validateToken.call(token, fileID, (error, mapAddress) => {
+                if(!error){
+                  console.log("Map address received : ", mapAddress);
+                }else{
+                  console.log(error);
+                }
+              });
+            }else{
+              console.log(err);
+            }
+          })
+        }else{
+          console.log(er);
+        }
+      });
+    }else{
+      console.log(e);
+    }
+  });
+}
+
 document.getElementById("getdata_button").addEventListener("click", getData);
