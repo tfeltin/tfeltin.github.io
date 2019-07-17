@@ -66,8 +66,8 @@ function userAddData(){
                       							var linkText = document.createTextNode("Successfully added file.");
                       							a.appendChild(linkText);
                       							a.style.color = 'green';
-                      							document.getElementById("spadd_form").appendChild(a);
-                      							document.getElementById("spadd_form").reset();
+                      							document.getElementById("useradd_form").appendChild(a);
+                      							document.getElementById("useradd_form").reset();
                       						} else {
                       							console.log("Error in transaction");
                       							console.log(error);
