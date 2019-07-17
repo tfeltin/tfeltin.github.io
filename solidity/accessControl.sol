@@ -12,7 +12,7 @@ contract AccessControl {
     mapping(address => bytes32) private pendingMap;
     // Record of token expiration times (token => time)
     mapping(bytes32 => uint256) private expiration;
-    mapping(bytes32 => bytes32) private token2fileID;
+    mapping(bytes32 => mapping(address => bytes32)) private tokens;
 
     // IPFS address of map from file IDs to IPFS addresses
     string private mapAddress = "Qmdcdys5PNRvhDwBZMcKTsbjQMhfeGC4ZbhJsjeJcsYYZj";
@@ -71,20 +71,25 @@ contract AccessControl {
     }
 
     // Generate access token to a specified file
-    function getToken(bytes32 _fileID) public returns(bytes32){
+    function getToken(bytes32 _fileID) public {
         require (canAccess[_fileID][msg.sender]);
         bytes32 token = random(_fileID);
         expiration[token] = block.timestamp + 30; // tokens last 30 seconds
-        token2fileID[token] = _fileID;
+        tokens[_fileID][msg.sender] = token;
+    }
+
+    function getTokenCall(bytes32 _fileID) public view returns(bytes32){
+        bytes32 token = tokens[_fileID][msg.sender];
+        require (token != 0x0);
         return token;
     }
 
     // Use token to have access to the map address
     function validateToken(bytes32 _token, bytes32 _fileID) public returns(string memory){
         require (block.timestamp < expiration[_token]);
-        require (token2fileID[_token] == _fileID);
+        require (tokens[_fileID][msg.sender] == _token);
         expiration[_token] = 0;
-        token2fileID[_token] = 0x0;
+        tokens[_fileID][msg.sender] = 0x0;
         return mapAddress;
     }
 

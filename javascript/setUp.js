@@ -7,32 +7,8 @@ const abi = [
 				"type": "bytes32"
 			}
 		],
-		"name": "getMapAddress",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_fileID",
-				"type": "bytes32"
-			}
-		],
 		"name": "getToken",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -50,46 +26,6 @@ const abi = [
 			}
 		],
 		"name": "grantAccess",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_fileID",
-				"type": "bytes32"
-			},
-			{
-				"name": "thirdParty",
-				"type": "address"
-			}
-		],
-		"name": "revokeAccess",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_fileID",
-				"type": "bytes32"
-			},
-			{
-				"name": "_userAddress",
-				"type": "address"
-			},
-			{
-				"name": "_mapAddress",
-				"type": "string"
-			}
-		],
-		"name": "spAddData",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -137,15 +73,44 @@ const abi = [
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
+			},
+			{
+				"name": "thirdParty",
+				"type": "address"
+			}
+		],
+		"name": "revokeAccess",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
+			},
+			{
+				"name": "_userAddress",
+				"type": "address"
+			},
 			{
 				"name": "_mapAddress",
 				"type": "string"
 			}
 		],
+		"name": "spAddData",
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -155,6 +120,44 @@ const abi = [
 			{
 				"name": "",
 				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getMapAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_fileID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getTokenCall",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
 			}
 		],
 		"payable": false,
@@ -184,7 +187,7 @@ const abi = [
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x1eaf361597bd88a38c38059e933aad122f166095");
+const contract = cont.at("0xa4d77db2500055d86702575eb5c4e14305552a8f");
 const options = {
 	EXPERIMENTAL: {
 		pubsub: true
