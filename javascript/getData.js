@@ -43,8 +43,8 @@ function waitForToken(txHash,fileID) {
             var a = document.createElement('a');
             var linkText = document.createTextNode("TOKEN : " + token);
             a.appendChild(linkText);
-            document.getElementById("getdata_button").appendChild(a);
-            document.getElementById("user_getdata").reset();
+            document.getElementById("redeem_form").appendChild(a);
+            document.getElementById("redeem_form").reset();
           }else{
             console.log(call_err);
           }
