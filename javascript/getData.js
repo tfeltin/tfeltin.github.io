@@ -31,14 +31,22 @@ function downloadableFile_usr(name, hash, size, data) {
 }
 
 
-function confirmTransaction(txHash) {
+function waitForToken(txHash) {
   setTimeout(() => {
     web3.eth.getTransaction(txHash, (e,tx) => {
       if (tx != null) {
+        console.log(tx);
         console.log('Transaction ' + txHash + ' has been successfully confirmed');
+        contract.getTokenCall.call(fileID, (call_err, token) => {
+          if(!call_err){
+            console.log("Token : ", token);
+          }else{
+            console.log(call_err);
+          }
+        });
         return;
       }
-      return confirmTransaction(txHash);
+      return waitForToken(txHash);
     });
   }, 10 * 1000);
 }
@@ -60,14 +68,7 @@ function getData(){
           };
           contract.getToken.sendTransaction(fileID, tx, async (err, hash) => {
             if(!err){
-              await confirmTransaction(hash);
-              contract.getTokenCall.call(fileID, (call_err, token) => {
-                if(!call_err){
-                  console.log("Token : ", token);
-                }else{
-                  console.log(call_err);
-                }
-              });
+              await waitForToken(hash);
             }else{
               console.log(err);
             }
