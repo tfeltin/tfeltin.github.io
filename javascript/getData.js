@@ -71,7 +71,7 @@ function getData(){
               contract.getTokenCall.call(fileID, (call_err, token) => {
                 if(!call_err){
                   console.log("Token before: ", token);
-                  await waitForToken(hash);
+                  waitForToken(hash);
                 }else{
                   console.log(call_err);
                 }
