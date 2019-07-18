@@ -119,6 +119,7 @@ function spAddData(){
                     console.log(fileID, newMapAddress);
               			contract.userAddData.sendTransaction(fileID, userAddress, newMapAddress, (error, result) => {
               						if (!error){
+                            console.log(result);
               							var a = document.createElement('a');
               							var linkText = document.createTextNode("Successfully added file.");
               							a.appendChild(linkText);

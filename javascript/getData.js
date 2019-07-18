@@ -30,6 +30,20 @@ function downloadableFile_usr(name, hash, size, data) {
 	document.getElementById('empty-row-get').style.display = 'none';
 }
 
+
+function confirmTransaction(txHash) {
+  setTimeout(async () => {
+    var tx = web3.eth.getTransaction(txHash);
+    console.log(tx, tx.blockNumber);
+    if (tx.blockNumber > 0) {
+      console.log('Transaction ' + txHash + ' has been successfully confirmed')
+      return
+    }
+    return confirmTransaction(txHash)
+  }, 10 * 1000)
+}
+
+
 function getData(){
   var flag = 0;
   const fileID = document.getElementById("user_getdata").value;
@@ -44,19 +58,21 @@ function getData(){
             gas: gas,
             gasPrice: gasPrice
           };
-          contract.getToken.sendTransaction(fileID, tx, (err, result) => {
+          contract.getToken.sendTransaction(fileID, tx, (err, hash) => {
             if(!err){
-              contract.getTokenCall.call(fileID, (call_err, token) => {
-                if(!call_err){
-                  console.log("Token : ", token);
-                }else{
-                  console.log(call_err);
-                }
-              });
+              confirmTransaction(hash).then(
+                contract.getTokenCall.call(fileID, (call_err, token) => {
+                  if(!call_err){
+                    console.log("Token : ", token);
+                  }else{
+                    console.log(call_err);
+                  }
+                });
+              );
             }else{
               console.log(err);
             }
-          })
+          });
         }else{
           console.log(er);
         }
