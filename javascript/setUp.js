@@ -205,34 +205,39 @@ node.once('start', () => {
 });
 
 function downloadableFile(fileID) {
-
   //const file = new window.Blob([data], { type: 'application/octet-binary' })
   //const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
-
   //const nameCell = document.createElement('td')
   //nameCell.innerHTML = name
   const hashCell = document.createElement('td')
   hashCell.innerHTML = fileID
   //const sizeCell = document.createElement('td')
   //sizeCell.innerText = size
-  const downloadCell = document.createElement('td')
-
+  const copyCell = document.createElement('td')
   const link = document.createElement('a')
   //link.setAttribute('href', url)
   //link.setAttribute('download', name)
-  link.innerHTML = '<img width=20 class="table-action" src="assets/download.svg" alt="Download" />'
-
+  link.innerHTML = '<img width=20 class="table-action" src="assets/copy.svg" alt="Copy" />'
+	link.addEventListener("click", copyToClipboard(fileID));
   downloadCell.appendChild(link)
-  //row.appendChild(nameCell)
   row.appendChild(hashCell)
-  //row.appendChild(sizeCell)
-  row.appendChild(downloadCell)
+  row.appendChild(copyCell)
 
 	$myDataloc.insertBefore(row, $myDataloc.firstChild);
 	document.getElementById('empty-row').style.display = 'none';
 }
 
+function copyToClipboard(fileID){
+	var el = document.createElement('textarea');
+  el.value = fileID;
+  el.setAttribute('readonly', '');
+  el.style = {position: 'absolute', left: '-9999px'};
+  document.body.appendChild(el);
+  el.select();
+	document.execCommand('copy');
+  document.body.removeChild(el);
+}
 
 async function setup(){
   // setup web3 and connect to MetaMask
