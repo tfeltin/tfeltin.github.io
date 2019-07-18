@@ -45,7 +45,7 @@ async function confirmTransaction(txHash) {
 }
 
 
-async function getData(){
+function getData(){
   var flag = 0;
   const fileID = document.getElementById("user_getdata").value;
 
@@ -59,7 +59,7 @@ async function getData(){
             gas: gas,
             gasPrice: gasPrice
           };
-          contract.getToken.sendTransaction(fileID, tx, (err, hash) => {
+          contract.getToken.sendTransaction(fileID, tx, async (err, hash) => {
             if(!err){
               await confirmTransaction(hash);
               contract.getTokenCall.call(fileID, (call_err, token) => {
