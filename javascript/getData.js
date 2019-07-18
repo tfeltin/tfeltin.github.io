@@ -31,7 +31,7 @@ function downloadableFile_usr(name, hash, size, data) {
 }
 
 
-function waitForToken(txHash) {
+function waitForToken(txHash,fileID) {
   setTimeout(() => {
     web3.eth.getTransaction(txHash, (e,tx) => {
       if (tx != null) {
@@ -46,7 +46,7 @@ function waitForToken(txHash) {
         });
         return;
       }
-      return waitForToken(txHash);
+      return waitForToken(txHash, fileID);
     });
   }, 10 * 1000);
 }
@@ -71,7 +71,7 @@ function getData(){
               contract.getTokenCall.call(fileID, (call_err, token) => {
                 if(!call_err){
                   console.log("Token before: ", token);
-                  waitForToken(hash);
+                  waitForToken(hash, fileID);
                 }else{
                   console.log(call_err);
                 }
