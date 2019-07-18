@@ -31,7 +31,7 @@ function downloadableFile_usr(name, hash, size, data) {
 }
 
 
-function confirmTransaction(txHash) {
+async function confirmTransaction(txHash) {
   setTimeout(async () => {
     web3.eth.getTransaction(txHash, (e,tx) => {
       console.log(tx, tx.blockNumber);
@@ -45,7 +45,7 @@ function confirmTransaction(txHash) {
 }
 
 
-function getData(){
+async function getData(){
   var flag = 0;
   const fileID = document.getElementById("user_getdata").value;
 
@@ -61,14 +61,13 @@ function getData(){
           };
           contract.getToken.sendTransaction(fileID, tx, (err, hash) => {
             if(!err){
-              confirmTransaction(hash).then((r) => {
-                contract.getTokenCall.call(fileID, (call_err, token) => {
-                  if(!call_err){
-                    console.log("Token : ", token);
-                  }else{
-                    console.log(call_err);
-                  }
-                });
+              await confirmTransaction(hash);
+              contract.getTokenCall.call(fileID, (call_err, token) => {
+                if(!call_err){
+                  console.log("Token : ", token);
+                }else{
+                  console.log(call_err);
+                }
               });
             }else{
               console.log(err);
