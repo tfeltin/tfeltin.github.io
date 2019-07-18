@@ -34,8 +34,7 @@ function downloadableFile_usr(name, hash, size, data) {
 async function confirmTransaction(txHash) {
   setTimeout(async () => {
     web3.eth.getTransaction(txHash, (e,tx) => {
-      console.log(tx, tx.blockNumber);
-      if (tx.blockNumber > 0) {
+      if (tx != null) {
         console.log('Transaction ' + txHash + ' has been successfully confirmed');
         return;
       }
