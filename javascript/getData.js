@@ -68,7 +68,14 @@ function getData(){
           };
           contract.getToken.sendTransaction(fileID, tx, async (err, hash) => {
             if(!err){
-              await waitForToken(hash);
+              contract.getTokenCall.call(fileID, (call_err, token) => {
+                if(!call_err){
+                  console.log("Token before: ", token);
+                  await waitForToken(hash);
+                }else{
+                  console.log(call_err);
+                }
+              });
             }else{
               console.log(err);
             }
