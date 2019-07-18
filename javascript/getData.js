@@ -40,6 +40,11 @@ function waitForToken(txHash,fileID) {
         contract.getTokenCall.call(fileID, (call_err, token) => {
           if(!call_err){
             console.log("Token : ", token);
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("TOKEN : " + token);
+            a.appendChild(linkText);
+            document.getElementById("getdata_button").appendChild(a);
+            document.getElementById("user_getdata").reset();
           }else{
             console.log(call_err);
           }
