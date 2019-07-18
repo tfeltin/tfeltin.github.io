@@ -219,7 +219,7 @@ function downloadableFile(fileID) {
   //link.setAttribute('href', url)
   //link.setAttribute('download', name)
   link.innerHTML = '<img width=20 class="table-action" src="assets/copy.svg" alt="Copy" />'
-	link.addEventListener("click", copyToClipboard(fileID));
+	link.addEventListener("click", copyToClipboard(fileID))
   copyCell.appendChild(link)
   row.appendChild(hashCell)
   row.appendChild(copyCell)
