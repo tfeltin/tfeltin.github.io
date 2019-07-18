@@ -92,6 +92,8 @@ function getData(){
 
 
 function getData2(token, fileID){
+  var fileID = document.getElementById('redeem_fileID');
+  var token = document.getElementById('redeem_token');
   web3.eth.getGasPrice((e, gasPrice) => {
     if (!e){
       gasPrice = gasPrice.c[0];
@@ -107,6 +109,11 @@ function getData2(token, fileID){
               contract.validateToken.call(token, fileID, (error, mapAddress) => {
                 if(!error){
                   console.log("Map address received : ", mapAddress);
+                  node.get(mapAddress).then((mapStr) =>{
+                    var map = new Map(JSON.parse(mapStr[1].content.toString()));
+                    var ipfsAddress = map.get(fileID);
+                    console.log("IPFS address of data : ", ipfsAddress);
+                  });
                 }else{
                   console.log(error);
                 }
@@ -126,3 +133,4 @@ function getData2(token, fileID){
 }
 
 document.getElementById("getdata_button").addEventListener("click", getData);
+document.getElementById("redeem_button").addEventListener("click", getData2);
