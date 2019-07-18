@@ -36,11 +36,11 @@ function confirmTransaction(txHash) {
     var tx = web3.eth.getTransaction(txHash);
     console.log(tx, tx.blockNumber);
     if (tx.blockNumber > 0) {
-      console.log('Transaction ' + txHash + ' has been successfully confirmed')
-      return
+      console.log('Transaction ' + txHash + ' has been successfully confirmed');
+      return;
     }
-    return confirmTransaction(txHash)
-  }, 10 * 1000)
+    return confirmTransaction(txHash);
+  }, 10 * 1000);
 }
 
 
@@ -60,7 +60,7 @@ function getData(){
           };
           contract.getToken.sendTransaction(fileID, tx, (err, hash) => {
             if(!err){
-              confirmTransaction(hash).then(
+              confirmTransaction(hash).then((r) => {
                 contract.getTokenCall.call(fileID, (call_err, token) => {
                   if(!call_err){
                     console.log("Token : ", token);
@@ -68,7 +68,7 @@ function getData(){
                     console.log(call_err);
                   }
                 });
-              );
+              });
             }else{
               console.log(err);
             }
