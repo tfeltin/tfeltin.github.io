@@ -219,25 +219,23 @@ function downloadableFile(fileID) {
   //link.setAttribute('href', url)
   //link.setAttribute('download', name)
   link.innerHTML = '<img width=20 class="table-action" src="assets/copy.svg" alt="Copy" />'
-	link.addEventListener("click", copyToClipboard(fileID))
+	link.addEventListener("click", 	function () => {
+		console.log("copy ", fileID)
+		var el = document.createElement('textarea');
+	  el.value = fileID;
+	  el.setAttribute('readonly', '');
+	  el.style = {position: 'absolute', left: '-9999px'};
+	  document.body.appendChild(el);
+	  el.select();
+		document.execCommand('copy');
+	  document.body.removeChild(el);
+	})
   copyCell.appendChild(link)
   row.appendChild(hashCell)
   row.appendChild(copyCell)
 
 	$myDataloc.insertBefore(row, $myDataloc.firstChild);
 	document.getElementById('empty-row').style.display = 'none';
-}
-
-function copyToClipboard(fileID){
-	console.log("copy ", fileID)
-	var el = document.createElement('textarea');
-  el.value = fileID;
-  el.setAttribute('readonly', '');
-  el.style = {position: 'absolute', left: '-9999px'};
-  document.body.appendChild(el);
-  el.select();
-	document.execCommand('copy');
-  document.body.removeChild(el);
 }
 
 async function setup(){
