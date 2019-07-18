@@ -33,13 +33,14 @@ function downloadableFile_usr(name, hash, size, data) {
 
 function confirmTransaction(txHash) {
   setTimeout(async () => {
-    var tx = web3.eth.getTransaction(txHash);
-    console.log(tx, tx.blockNumber);
-    if (tx.blockNumber > 0) {
-      console.log('Transaction ' + txHash + ' has been successfully confirmed');
-      return;
-    }
-    return confirmTransaction(txHash);
+    web3.eth.getTransaction(txHash, (e,tx) => {
+      console.log(tx, tx.blockNumber);
+      if (tx.blockNumber > 0) {
+        console.log('Transaction ' + txHash + ' has been successfully confirmed');
+        return;
+      }
+      return confirmTransaction(txHash);
+    });
   }, 10 * 1000);
 }
 
