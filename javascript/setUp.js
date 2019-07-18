@@ -229,6 +229,7 @@ function downloadableFile(fileID) {
 }
 
 function copyToClipboard(fileID){
+	console.log("copy ", fileID)
 	var el = document.createElement('textarea');
   el.value = fileID;
   el.setAttribute('readonly', '');
