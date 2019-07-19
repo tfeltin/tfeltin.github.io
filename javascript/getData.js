@@ -137,6 +137,12 @@ function getData(){
           })
         }else{
           console.log(er);
+          var a = document.createElement('a');
+          var linkText = document.createTextNode("Transaction failed, try requesting a new token.");
+          a.style.color = 'red';
+          a.appendChild(linkText);
+          document.getElementById("redeem_form").appendChild(a);
+          document.getElementById("redeem_form").reset();
         }
       });
     }else{
