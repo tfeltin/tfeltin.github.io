@@ -1,6 +1,6 @@
 const $getDataloc = document.querySelector('#getDataloc');
 
-function downloadableFile_usr(name, hash, size, data) {
+function downloadableFile_usr(name, fileID, size, data) {
   const file = new window.Blob([data], { type: 'application/octet-binary' })
   const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
@@ -8,8 +8,8 @@ function downloadableFile_usr(name, hash, size, data) {
   const nameCell = document.createElement('td')
   nameCell.innerHTML = name
 
-  const hashCell = document.createElement('td')
-  hashCell.innerHTML = hash
+  const idCell = document.createElement('td')
+  idCell.innerHTML = fileID
 
   const sizeCell = document.createElement('td')
   sizeCell.innerText = size
@@ -22,7 +22,7 @@ function downloadableFile_usr(name, hash, size, data) {
   downloadCell.appendChild(link)
 
   row.appendChild(nameCell)
-  row.appendChild(hashCell)
+  row.appendChild(idCell)
   row.appendChild(sizeCell)
   row.appendChild(downloadCell)
 
@@ -31,7 +31,7 @@ function downloadableFile_usr(name, hash, size, data) {
 }
 
 
-function waitForToken(txHash,fileID) {
+function waitForToken(txHash,fileID,div) {
   setTimeout(() => {
     web3.eth.getTransaction(txHash, (e,tx) => {
       if (tx != null) {
@@ -40,6 +40,7 @@ function waitForToken(txHash,fileID) {
         contract.getTokenCall.call(fileID, (call_err, token) => {
           if(!call_err){
             console.log("Token : ", token);
+            div.remove();
             var a = document.createElement('a');
             var linkText = document.createTextNode("TOKEN : " + token);
             a.appendChild(linkText);
@@ -51,13 +52,13 @@ function waitForToken(txHash,fileID) {
         });
         return;
       }
-      return waitForToken(txHash, fileID);
+      return waitForToken(txHash, fileID, div);
     });
   }, 10 * 1000);
 }
 
 
-function getData(){
+function getToken(){
   var flag = 0;
   const fileID = document.getElementById("user_getdata").value.toLowerCase();
 
@@ -76,7 +77,10 @@ function getData(){
               contract.getTokenCall.call(fileID, (call_err, token) => {
                 if(!call_err){
                   console.log("Token before: ", token);
-                  waitForToken(hash, fileID);
+                  var div = document.createElement('div');
+                  div.setAttribute('class', 'loader');
+                  document.getElementById('redeem_form').appendChild(div);
+                  waitForToken(hash, fileID, div);
                 }else{
                   console.log(call_err);
                 }
@@ -96,7 +100,7 @@ function getData(){
 }
 
 
-function getData2(token, fileID){
+function getData(){
   var fileID = document.getElementById('redeem_fileID').value.toLowerCase();
   var token = document.getElementById('redeem_token').value.toLowerCase();
   console.log(fileID, token)
@@ -110,7 +114,7 @@ function getData2(token, fileID){
             gas: gas,
             gasPrice: gasPrice
           };
-          contract.validateToken.sendTransaction(token, fileID, tx, (err, result) => {
+          contract.validateToken.sendTransaction(token, fileID, tx, (err, result) => {
             if(!err){
               contract.validateToken.call(token, fileID, (error, mapAddress) => {
                 if(!error){
@@ -120,7 +124,7 @@ function getData2(token, fileID){
                     var ipfsAddress = map.get(fileID);
                     console.log("IPFS address of data : ", ipfsAddress);
                     node.get(ipfsAddress).then((file) => {
-                      downloadableFile_usr(file[1].name, file[1].hash, file[1].size, file[1].content);
+                      downloadableFile_usr(file[1].name, fileID, file[1].size, file[1].content);
                     })
                   });
                 }else{
@@ -141,5 +145,5 @@ function getData2(token, fileID){
   });
 }
 
-document.getElementById("getdata_button").addEventListener("click", getData);
-document.getElementById("redeem_button").addEventListener("click", getData2);
+document.getElementById("getdata_button").addEventListener("click", getToken);
+document.getElementById("redeem_button").addEventListener("click", getData);

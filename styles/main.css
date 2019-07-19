@@ -104,3 +104,26 @@ table tbody tr:hover {
 .col {
     display: table-cell; /* Make elements inside the container behave like table cells */
 }
+
+.loader {
+  border: 5px solid #e8e6e4;
+  border-radius: 50%;
+  border-top: 5px solid #4bcc94;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  position:relative;
+  left: 50%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
