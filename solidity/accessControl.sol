@@ -73,6 +73,7 @@ contract AccessControl {
     }
 
     function getTokenCall(bytes32 _fileID) public view returns(bytes32){
+        require(tokens[_fileID][msg.sender] != 0x0);
         bytes32 token = tokens[_fileID][msg.sender];
         return token;
     }
