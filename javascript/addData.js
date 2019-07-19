@@ -22,74 +22,68 @@ function userAddData(){
       window.crypto.subtle.digest("SHA-256", data).then((fid) => {
         var fileID = '0x' + buf2hex(fid);
         console.log("New file ID : ", fileID);
-        // 3 - register file to add in order to get map address
-        contract.getMapAddress.sendTransaction(fileID, (tx_err, receipt) => {
-          if (!tx_err){
-            contract.getMapAddress.call(fileID, (call_err, mapAddress) => {
-              if(!call_err){
-                console.log("Previous map address : ", mapAddress);
-                // 4 - fetch and update the map in IPFS
-                node.get(mapAddress).then((mapStr) => {
-              		var map = new Map(JSON.parse(mapStr[1].content.toString()));
-                  map.set(fileID, ipfsAddress);
-                  var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
-                  node.add({
-                					path: newMapFile.name,
-                					content: newMapFile
-                				},
-                      { wrapWithDirectory: true }
-                    )
-                	.then((response) => {
-                		var newMapAddress = response[1].hash;
-                    console.log("New map address : ", newMapAddress);
-                    // 5 - finish adding the file to the smart contract and update the map adddress on the blockchain
-                    console.log(fileID,newMapAddress);
-                    web3.eth.getGasPrice((e, gasPrice) => {
-                      if(!e){
-                        gasPrice = gasPrice.c[0];
-                        contract.userAddData.estimateGas(fileID, newMapAddress, (er, gas) => {
-                          if(!er){
-                            tx = {
-                              from: web3.eth.defaultAccount,
-                              gas: gas,
-                              gasPrice: gasPrice
-                            };
-                            contract.userAddData.sendTransaction(fileID, newMapAddress, (error, result) => {
-                                  if (!error){
-                                    var a = document.createElement('a');
-                                    var linkText = document.createTextNode("Successfully added file.");
-                                    a.appendChild(linkText);
-                                    a.style.color = 'green';
-                                    document.getElementById("useradd_form").appendChild(a);
-                                    document.getElementById("useradd_form").reset();
-                                  } else {
-                                    console.log("Error in transaction");
-                                    console.log(error);
-                                  }
-                                });
-                          }else{
-                            console.log(er);
-                          }
-                        });
+        // 3 - get map address
+        contract.getMapAddress.call((call_err, mapAddress) => {
+          if(!call_err){
+            console.log("Previous map address : ", mapAddress);
+            // 4 - fetch and update the map in IPFS
+            node.get(mapAddress).then((mapStr) => {
+          		var map = new Map(JSON.parse(mapStr[1].content.toString()));
+              map.set(fileID, ipfsAddress);
+              var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
+              node.add({
+            					path: newMapFile.name,
+            					content: newMapFile
+            				},
+                  { wrapWithDirectory: true }
+                )
+            	.then((response) => {
+            		var newMapAddress = response[1].hash;
+                console.log("New map address : ", newMapAddress);
+                // 5 - add the file and update the map adddress on the smart contract
+                console.log(fileID,newMapAddress);
+                web3.eth.getGasPrice((e, gasPrice) => {
+                  if(!e){
+                    gasPrice = gasPrice.c[0];
+                    contract.userAddData.estimateGas(fileID, newMapAddress, (er, gas) => {
+                      if(!er){
+                        tx = {
+                          from: web3.eth.defaultAccount,
+                          gas: gas,
+                          gasPrice: gasPrice
+                        };
+                        contract.userAddData.sendTransaction(fileID, newMapAddress, (error, result) => {
+                              if (!error){
+                                var a = document.createElement('a');
+                                var linkText = document.createTextNode("Successfully added file.");
+                                a.appendChild(linkText);
+                                a.style.color = 'green';
+                                document.getElementById("useradd_form").appendChild(a);
+                                document.getElementById("useradd_form").reset();
+                              } else {
+                                console.log("Error in transaction");
+                                console.log(error);
+                              }
+                            });
                       }else{
-                        console.log(e);
+                        console.log(er);
                       }
                     });
-              			});
-                	}).catch((node_err) => {
-                		console.error(node_err)
-                	});
-              } else {
-                console.log(call_err);
-              }
-            });
+                  }else{
+                    console.log(e);
+                  }
+                });
+          			});
+            	}).catch((node_err) => {
+            		console.error(node_err)
+            	});
           } else {
-            console.log("Error in transaction");
-            console.log(tx_err);
+            console.log(call_err);
           }
         });
       });
     });
+  });
 }
 
 
@@ -113,74 +107,68 @@ function spAddData(){
       window.crypto.subtle.digest("SHA-256", data).then((fid) => {
         var fileID = '0x' + buf2hex(fid);
         console.log("New file ID : ", fileID);
-        // 3 - register file to add in order to get map address
-        contract.getMapAddress.sendTransaction(fileID, (tx_err, receipt) => {
-          if (!tx_err){
-            contract.getMapAddress.call(fileID, (call_err, mapAddress) => {
-              if(!call_err){
-                console.log("Previous map address : ", mapAddress);
-                // 4 - fetch and update the map in IPFS
-                node.get(mapAddress).then((mapStr) => {
-              		var map = new Map(JSON.parse(mapStr[1].content.toString()));
-                  map.set(fileID, ipfsAddress);
-                  var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
-                  node.add({
-                					path: newMapFile.name,
-                					content: newMapFile
-                				},
-                      { wrapWithDirectory: true }
-                    )
-                	.then((response) => {
-                		var newMapAddress = response[1].hash;
-                    console.log("New map address : ", newMapAddress);
-                    // 5 - finish adding the file to the smart contract and update the map adddress on the blockchain
-                    console.log(fileID, newMapAddress);
-                    web3.eth.getGasPrice((e, gasPrice) => {
-                      if(!e){
-                        gasPrice = gasPrice.c[0];
-                        contract.spAddData.estimateGas(fileID, userAddress, newMapAddress, (er, gas) => {
-                          if(!er){
-                            tx = {
-                              from: web3.eth.defaultAccount,
-                              gas: gas,
-                              gasPrice: gasPrice
-                            };
-                            contract.spAddData.sendTransaction(fileID, userAddress, newMapAddress, (error, result) => {
-                                  if (!error){
-                                    var a = document.createElement('a');
-                                    var linkText = document.createTextNode("Successfully added file.");
-                                    a.appendChild(linkText);
-                                    a.style.color = 'green';
-                                    document.getElementById("useradd_form").appendChild(a);
-                                    document.getElementById("useradd_form").reset();
-                                  } else {
-                                    console.log("Error in transaction");
-                                    console.log(error);
-                                  }
-                                });
-                          }else{
-                            console.log(er);
-                          }
-                        });
+        // 3 - get map address
+        contract.getMapAddress.call((call_err, mapAddress) => {
+          if(!call_err){
+            console.log("Previous map address : ", mapAddress);
+            // 4 - fetch and update the map in IPFS
+            node.get(mapAddress).then((mapStr) => {
+          		var map = new Map(JSON.parse(mapStr[1].content.toString()));
+              map.set(fileID, ipfsAddress);
+              var newMapFile = new File([JSON.stringify([...map])], "mapAddress.json");
+              node.add({
+            					path: newMapFile.name,
+            					content: newMapFile
+            				},
+                  { wrapWithDirectory: true }
+                )
+            	.then((response) => {
+            		var newMapAddress = response[1].hash;
+                console.log("New map address : ", newMapAddress);
+                // 5 - add the file and update the map adddress on the smart contract
+                console.log(fileID, newMapAddress);
+                web3.eth.getGasPrice((e, gasPrice) => {
+                  if(!e){
+                    gasPrice = gasPrice.c[0];
+                    contract.spAddData.estimateGas(fileID, userAddress, newMapAddress, (er, gas) => {
+                      if(!er){
+                        tx = {
+                          from: web3.eth.defaultAccount,
+                          gas: gas,
+                          gasPrice: gasPrice
+                        };
+                        contract.spAddData.sendTransaction(fileID, userAddress, newMapAddress, (error, result) => {
+                              if (!error){
+                                var a = document.createElement('a');
+                                var linkText = document.createTextNode("Successfully added file.");
+                                a.appendChild(linkText);
+                                a.style.color = 'green';
+                                document.getElementById("useradd_form").appendChild(a);
+                                document.getElementById("useradd_form").reset();
+                              } else {
+                                console.log("Error in transaction");
+                                console.log(error);
+                              }
+                            });
                       }else{
-                        console.log(e);
+                        console.log(er);
                       }
                     });
-              			});
-                	}).catch((node_err) => {
-                		console.error(node_err)
-                	});
-              } else {
-                console.log(call_err);
-              }
-            });
+                  }else{
+                    console.log(e);
+                  }
+                });
+          			});
+            	}).catch((node_err) => {
+            		console.error(node_err)
+            	});
           } else {
-            console.log("Error in transaction");
-            console.log(tx_err);
+            console.log(call_err);
           }
         });
       });
     });
+  });
 }
 
 document.getElementById("useraddbutton").addEventListener("click", userAddData);

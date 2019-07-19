@@ -8,11 +8,10 @@ contract AccessControl {
     mapping(bytes32 => address) private ownership;
     // Record of file IDs and who can access the data (file ID => ETH address => bool)
     mapping(bytes32 => mapping(address => bool)) private canAccess;
-    // Pending changes in mapAddress
-    mapping(address => bytes32) private pendingMap;
+    //Record of tokens (fileID => owner => token)
+    mapping(bytes32 => mapping(address => bytes32)) private tokens;
     // Record of token expiration times (token => time)
     mapping(bytes32 => uint256) private expiration;
-    mapping(bytes32 => mapping(address => bytes32)) private tokens;
 
     // IPFS address of map from file IDs to IPFS addresses
     string private mapAddress = "Qmdcdys5PNRvhDwBZMcKTsbjQMhfeGC4ZbhJsjeJcsYYZj";
@@ -21,15 +20,12 @@ contract AccessControl {
     // ---------- ADDING DATA ----------
 
     // Register file ID to add in order to receive map address
-    function getMapAddress(bytes32 _fileID) public returns (string memory){
-        pendingMap[msg.sender] = _fileID;
+    function getMapAddress() public view returns (string memory){
         return mapAddress;
     }
 
     // Add previously registered user data and update the map address (for users)
     function userAddData(bytes32 _fileID, string memory _mapAddress) public {
-        require(pendingMap[msg.sender] == _fileID);
-        pendingMap[msg.sender] = 0x0;
         ownership[_fileID] = msg.sender;
         canAccess[_fileID][msg.sender] = true;
         myData[msg.sender].push(_fileID);
@@ -38,8 +34,6 @@ contract AccessControl {
 
     // Add previously registered user data and update the map address (for service providers)
     function spAddData(bytes32 _fileID, address _userAddress, string memory _mapAddress) public {
-        require(pendingMap[msg.sender] == _fileID);
-        pendingMap[msg.sender] = 0x0;
         ownership[_fileID] = _userAddress;
         canAccess[_fileID][msg.sender] = true;
         canAccess[_fileID][_userAddress] = true;

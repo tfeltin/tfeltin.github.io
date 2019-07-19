@@ -115,6 +115,20 @@ const abi = [
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "getMapAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "getMyData",
 		"outputs": [
 			{
@@ -124,25 +138,6 @@ const abi = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_fileID",
-				"type": "bytes32"
-			}
-		],
-		"name": "getMapAddress",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -187,7 +182,7 @@ const abi = [
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0x8c7621a5b267a8474b5febc5ecd9b8278a7c1581");
+const contract = cont.at("0xf84334900cfc1a41a91b73239d846e70300b0f06");
 const options = {
 	EXPERIMENTAL: {
 		pubsub: true
