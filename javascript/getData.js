@@ -44,9 +44,9 @@ function waitForToken(txHash,fileID,div) {
             var a = document.createElement('a');
             var linkText = document.createTextNode("TOKEN : " + token);
             a.appendChild(linkText);
-            document.getElementById("redeem_form").appendChild(a);
-            document.getElementById("redeem_form").reset();
-          }else{
+            document.getElementById("token_form").appendChild(a);
+            document.getElementById("token_form").reset();
+          } else {
             console.log(call_err);
           }
         });
@@ -79,7 +79,7 @@ function getToken(){
                   console.log("Token before: ", token);
                   var div = document.createElement('div');
                   div.setAttribute('class', 'loader');
-                  document.getElementById('redeem_form').appendChild(div);
+                  document.getElementById('token_form').appendChild(div);
                   waitForToken(hash, fileID, div);
                 }else{
                   console.log(call_err);
@@ -91,6 +91,12 @@ function getToken(){
           });
         }else{
           console.log(er);
+          var a = document.createElement('a');
+          var linkText = document.createTextNode("Transaction failed, you don't have access to this file.");
+          a.style.color = 'red';
+          a.appendChild(linkText);
+          document.getElementById("token_form").appendChild(a);
+          document.getElementById("token_form").reset();
         }
       });
     }else{
