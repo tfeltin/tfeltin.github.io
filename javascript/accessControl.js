@@ -1,6 +1,6 @@
 function grantAccess(){
-	var cid = document.getElementById("grant_cid").value;
-  var eth_add = document.getElementById("grant_eth").value;
+	var cid = document.getElementById("grant_cid").value.toLowerCase();
+  var eth_add = document.getElementById("grant_eth").value.toLowerCase();
 
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
@@ -39,8 +39,8 @@ function grantAccess(){
 
 
 function revokeAccess(){
-	var cid = document.getElementById("revoke_cid").value;
-  var eth_add = document.getElementById("revoke_eth").value;
+	var cid = document.getElementById("revoke_cid").value.toLowerCase();
+  var eth_add = document.getElementById("revoke_eth").value.toLowerCase();
 
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){

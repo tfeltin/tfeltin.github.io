@@ -59,7 +59,7 @@ function waitForToken(txHash,fileID) {
 
 function getData(){
   var flag = 0;
-  const fileID = document.getElementById("user_getdata").value;
+  const fileID = document.getElementById("user_getdata").value.toLowerCase();
 
   web3.eth.getGasPrice((e, gasPrice) => {
     if (!e){
@@ -97,8 +97,8 @@ function getData(){
 
 
 function getData2(token, fileID){
-  var fileID = document.getElementById('redeem_fileID').value;
-  var token = document.getElementById('redeem_token').value;
+  var fileID = document.getElementById('redeem_fileID').value.toLowerCase();
+  var token = document.getElementById('redeem_token').value.toLowerCase();
   console.log(fileID, token)
   web3.eth.getGasPrice((e, gasPrice) => {
     if (!e){

@@ -20,7 +20,7 @@ function userAddData(){
       const encoder = new TextEncoder();
       const data = encoder.encode(ipfsAddress);
       window.crypto.subtle.digest("SHA-256", data).then((fid) => {
-        var fileID = '0x' + buf2hex(fid);
+        var fileID = ('0x' + buf2hex(fid)).toLowerCase();
         console.log("New file ID : ", fileID);
         // 3 - get map address
         contract.getMapAddress.call((call_err, mapAddress) => {
@@ -88,7 +88,7 @@ function userAddData(){
 
 // SERVICE PROVIDER ADDS USER OWNED FILE IN SYSTEM
 function spAddData(){
-  var userAddress = document.getElementById("user_eth_address").value;
+  var userAddress = document.getElementById("user_eth_address").value.toLowerCase();
   var spFile = document.getElementById("spadd_file");
   // 1 - add file to IPFS
   node.add({
@@ -104,7 +104,7 @@ function spAddData(){
       const encoder = new TextEncoder();
       const data = encoder.encode(ipfsAddress);
       window.crypto.subtle.digest("SHA-256", data).then((fid) => {
-        var fileID = '0x' + buf2hex(fid);
+        var fileID = ('0x' + buf2hex(fid)).toLowerCase();
         console.log("New file ID : ", fileID);
         // 3 - get map address
         contract.getMapAddress.call((call_err, mapAddress) => {
