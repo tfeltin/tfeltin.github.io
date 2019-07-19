@@ -59,7 +59,7 @@ contract AccessControl {
 
     // ------------- ACCESS TOKENS -------------
 
-    // Pseudo random number genrator
+    // Pseudo random number generator
     function random(bytes32 _fileID) internal view returns (bytes32) {
         return keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, _fileID));
     }
