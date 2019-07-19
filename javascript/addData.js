@@ -83,7 +83,6 @@ function userAddData(){
         });
       });
     });
-  });
 }
 
 
@@ -168,8 +167,8 @@ function spAddData(){
         });
       });
     });
-  });
 }
+
 
 document.getElementById("useraddbutton").addEventListener("click", userAddData);
 document.getElementById("spadduserdatabutton").addEventListener("click", spAddData);
