@@ -74,13 +74,12 @@ contract AccessControl {
     function getToken(bytes32 _fileID) public {
         require (canAccess[_fileID][msg.sender]);
         bytes32 token = random(_fileID);
-        expiration[token] = block.timestamp + 30; // tokens last 30 seconds
+        expiration[token] = block.timestamp + 5*60; // tokens last 5 minutes
         tokens[_fileID][msg.sender] = token;
     }
 
     function getTokenCall(bytes32 _fileID) public view returns(bytes32){
         bytes32 token = tokens[_fileID][msg.sender];
-        require (token != 0x0);
         return token;
     }
 

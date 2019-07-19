@@ -187,7 +187,7 @@ const abi = [
 
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
-const contract = cont.at("0xa4d77db2500055d86702575eb5c4e14305552a8f");
+const contract = cont.at("0x8c7621a5b267a8474b5febc5ecd9b8278a7c1581");
 const options = {
 	EXPERIMENTAL: {
 		pubsub: true
