@@ -1,6 +1,6 @@
 function grantAccess(){
-	var cid = document.getElementById("grant_cid");
-  var eth_add = document.getElementById("grant_eth");
+	var cid = document.getElementById("grant_cid").value;
+  var eth_add = document.getElementById("grant_eth").value;
 
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
@@ -15,7 +15,7 @@ function grantAccess(){
 					contract.grantAccess.sendTransaction(cid, eth_add, tx, (err, result) => {
 						if (!err){
 							var a = document.createElement('a');
-							var success = document.createTextNode("Successfully added file.");
+							var success = document.createTextNode("Successfully granted access.");
               a.appendChild(success);
               a.style.color = 'green';
 							document.getElementById("grant_form").appendChild(a);
@@ -39,8 +39,8 @@ function grantAccess(){
 
 
 function revokeAccess(){
-	var cid = document.getElementById("revoke_cid");
-  var eth_add = document.getElementById("revoke_eth");
+	var cid = document.getElementById("revoke_cid").value;
+  var eth_add = document.getElementById("revoke_eth").value;
 
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
@@ -55,7 +55,7 @@ function revokeAccess(){
 					contract.revokeAccess.sendTransaction(cid, eth_add, tx, (err, result) => {
 						if (!err){
 							var a = document.createElement('a');
-							var success = document.createTextNode("Successfully added file.");
+							var success = document.createTextNode("Successfully revoked access right.");
               a.appendChild(success);
               a.style.color = 'green';
 							document.getElementById("revoke_form").appendChild(a);
