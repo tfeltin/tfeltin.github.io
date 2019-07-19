@@ -97,8 +97,8 @@ function getData(){
 
 
 function getData2(token, fileID){
-  var fileID = document.getElementById('redeem_fileID');
-  var token = document.getElementById('redeem_token');
+  var fileID = document.getElementById('redeem_fileID').value;
+  var token = document.getElementById('redeem_token').value;
   console.log(fileID, token)
   web3.eth.getGasPrice((e, gasPrice) => {
     if (!e){
