@@ -1,7 +1,7 @@
 const $getDataloc = document.querySelector('#getDataloc');
 const $myTokenLoc = document.querySelector('#myTokenLoc');
 
-function downloadableFile_usr(name, fileID, size, data) {
+function downloadableFile_usr(name, fileID, size, data, div) {
   const file = new window.Blob([data], { type: 'application/octet-binary' })
   const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
@@ -26,6 +26,8 @@ function downloadableFile_usr(name, fileID, size, data) {
   row.appendChild(idCell)
   row.appendChild(sizeCell)
   row.appendChild(downloadCell)
+
+  div.remove();
 
 	$getDataloc.insertBefore(row, $getDataloc.firstChild);
 	document.getElementById('empty-row-get').style.display = 'none';
@@ -156,8 +158,11 @@ function getData(){
                     var map = new Map(JSON.parse(mapStr[1].content.toString()));
                     var ipfsAddress = map.get(fileID);
                     console.log("IPFS address of data : ", ipfsAddress);
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'loader');
+                    document.getElementById('redeem_form').appendChild(div);
                     node.get(ipfsAddress).then((file) => {
-                      downloadableFile_usr(file[1].name, fileID, file[1].size, file[1].content);
+                      downloadableFile_usr(file[1].name, fileID, file[1].size, file[1].content, div);
                     })
                   });
                 }else{
