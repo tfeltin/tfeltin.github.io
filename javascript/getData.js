@@ -1,4 +1,5 @@
 const $getDataloc = document.querySelector('#getDataloc');
+const $myTokenLoc = document.querySelector('#myTokenLoc');
 
 function downloadableFile_usr(name, fileID, size, data) {
   const file = new window.Blob([data], { type: 'application/octet-binary' })
@@ -30,6 +31,34 @@ function downloadableFile_usr(name, fileID, size, data) {
 	document.getElementById('empty-row-get').style.display = 'none';
 }
 
+function showToken(token){
+  const row = document.createElement('tr')
+
+  const tokenCell = document.createElement('td')
+  tokenCell.innerHTML = token
+
+  const copyCell = document.createElement('td')
+  const link = document.createElement('a')
+
+  link.innerHTML = '<img width=20 class="table-action" src="assets/copy.svg" alt="Copy" />'
+	link.addEventListener("click", () => {
+		console.log("copy ", token)
+		var el = document.createElement('textarea');
+	  el.value = token;
+	  el.setAttribute('readonly', '');
+	  el.style = {position: 'absolute', left: '-9999px'};
+	  document.body.appendChild(el);
+	  el.select();
+		document.execCommand('copy');
+	  document.body.removeChild(el);
+	})
+  copyCell.appendChild(link)
+  row.appendChild(tokenCell)
+  row.appendChild(copyCell)
+
+	$mytokenLoc.insertBefore(row, $mytokenLoc.firstChild);
+	document.getElementById('myTokenTable').style.display = 'visible';
+}
 
 function waitForToken(txHash,fileID,div) {
   setTimeout(() => {
