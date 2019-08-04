@@ -58,7 +58,7 @@ function showToken(token){
   row.appendChild(tokenCell)
   row.appendChild(copyCell)
 
-	$mytokenLoc.insertBefore(row, $mytokenLoc.firstChild);
+	$myTokenLoc.insertBefore(row, $myTokenLoc.firstChild);
 	document.getElementById('myTokenTable').style.display = 'visible';
 }
 
