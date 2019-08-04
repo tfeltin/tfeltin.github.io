@@ -88,6 +88,13 @@
             <input type="text" id="grant_cid"><br>
             ETH address:<br>
             <input type="text" id="grant_eth"><br>
+            Permission type:<br>
+            <select id="grant_policy">
+              <option value="0">Create</option>
+              <option value="1">Read</option>
+              <option value="2">Update</option>
+              <option value="3">Delete</option>
+            </select><br>
           </form>
           <button type="button" id="grant_button">OK</button>
 
@@ -100,6 +107,13 @@
             <input type="text" id="revoke_cid"><br>
             ETH address:<br>
             <input type="text" id="revoke_eth"><br>
+            Permission type:<br>
+            <select id="revoke_policy">
+              <option value="0">Create</option>
+              <option value="1">Read</option>
+              <option value="2">Update</option>
+              <option value="3">Delete</option>
+            </select><br>
           </form>
           <button type="button" id="revoke_button">OK</button>
 
@@ -113,12 +127,15 @@
       Enter a file ID:
       <div class="col-container">
         <form id="token_form">
-          <div class="col" style="width:90%">
-            <input type="text" id="user_getdata" style="width: 98%;">
-          </div>
-          <div class="col">
-            <button type="button" id="getdata_button" style="width: 100%">Get</button>
-          </div>
+        <input type="text" id="user_getdata" style="width:100%;"><br>
+        Permission type:<br>
+        <select id="token_policy">
+          <option value="0">Create</option>
+          <option value="1">Read</option>
+          <option value="2">Update</option>
+          <option value="3">Delete</option>
+        </select><br>
+        <button type="button" id="getdata_button" style="width: 100%">Get</button>
         </form>
       </div>
     </div>

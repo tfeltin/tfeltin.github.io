@@ -60,19 +60,20 @@ function waitForToken(txHash,fileID,div) {
 
 function getToken(){
   var flag = 0;
-  const fileID = document.getElementById("user_getdata").value.toLowerCase();
+  var fileID = document.getElementById("user_getdata").value.toLowerCase();
+  var policyType = document.getElementById("token_policy").value;
 
   web3.eth.getGasPrice((e, gasPrice) => {
     if (!e){
       gasPrice = gasPrice.c[0];
-      contract.getToken.estimateGas(fileID, {from: web3.eth.defaultAccount}, (er, gas) => {
+      contract.getToken.estimateGas(fileID, policyType, {from: web3.eth.defaultAccount}, (er, gas) => {
         if(!er){
           var tx = {
             from: web3.eth.defaultAccount,
             gas: gas,
             gasPrice: gasPrice
           };
-          contract.getToken.sendTransaction(fileID, tx, async (err, hash) => {
+          contract.getToken.sendTransaction(fileID, policyType, tx, async (err, hash) => {
             if(!err){
               contract.getTokenCall.call(fileID, (call_err, token) => {
                 if(!call_err){

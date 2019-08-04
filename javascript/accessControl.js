@@ -1,18 +1,19 @@
 function grantAccess(){
 	var cid = document.getElementById("grant_cid").value.toLowerCase();
   var eth_add = document.getElementById("grant_eth").value.toLowerCase();
+	var policyType = document.getElementById("grant_policy").value;
 
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			contract.grantAccess.estimateGas(cid, eth_add, {from: web3.eth.defaultAccount}, (er, gas) => {
+			contract.grantAccess.estimateGas(cid, eth_add, policyType, {from: web3.eth.defaultAccount}, (er, gas) => {
 				if (!er){
 					var tx = {
 						from: web3.eth.defaultAccount,
 						gas: gas,
 						gasPrice: gasPrice
 					};
-					contract.grantAccess.sendTransaction(cid, eth_add, tx, (err, result) => {
+					contract.grantAccess.sendTransaction(cid, eth_add, policyType, tx, (err, result) => {
 						if (!err){
 							var a = document.createElement('a');
 							var success = document.createTextNode("Successfully granted access.");
@@ -41,18 +42,19 @@ function grantAccess(){
 function revokeAccess(){
 	var cid = document.getElementById("revoke_cid").value.toLowerCase();
   var eth_add = document.getElementById("revoke_eth").value.toLowerCase();
+	var policyType = document.getElementById("grant_policy").value;
 
 	web3.eth.getGasPrice((e, gasPrice) => {
 		if (!e){
 			gasPrice = gasPrice.c[0];
-			contract.revokeAccess.estimateGas(cid, eth_add, {from: web3.eth.defaultAccount}, (er, gas) => {
+			contract.revokeAccess.estimateGas(cid, eth_add, policyType, {from: web3.eth.defaultAccount}, (er, gas) => {
 				if (!er){
 					var tx = {
 						from: web3.eth.defaultAccount,
 						gas: gas,
 						gasPrice: gasPrice
 					};
-					contract.revokeAccess.sendTransaction(cid, eth_add, tx, (err, result) => {
+					contract.revokeAccess.sendTransaction(cid, eth_add, policyType, tx, (err, result) => {
 						if (!err){
 							var a = document.createElement('a');
 							var success = document.createTextNode("Successfully revoked access right.");
