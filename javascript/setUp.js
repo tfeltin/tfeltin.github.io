@@ -5,9 +5,17 @@ const abi = [
 			{
 				"name": "_fileID",
 				"type": "bytes32"
+			},
+			{
+				"name": "_thirdParty",
+				"type": "address"
+			},
+			{
+				"name": "_policyType",
+				"type": "uint32"
 			}
 		],
-		"name": "getToken",
+		"name": "revokeAccess",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -23,6 +31,10 @@ const abi = [
 			{
 				"name": "_thirdParty",
 				"type": "address"
+			},
+			{
+				"name": "_policyType",
+				"type": "uint32"
 			}
 		],
 		"name": "grantAccess",
@@ -80,11 +92,11 @@ const abi = [
 				"type": "bytes32"
 			},
 			{
-				"name": "thirdParty",
-				"type": "address"
+				"name": "_policyType",
+				"type": "uint32"
 			}
 		],
-		"name": "revokeAccess",
+		"name": "getToken",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
