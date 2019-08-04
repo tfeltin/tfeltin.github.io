@@ -70,10 +70,7 @@ function waitForToken(txHash,fileID,div) {
           if(!call_err){
             console.log("Token : ", token);
             div.remove();
-            var a = document.createElement('a');
-            var linkText = document.createTextNode("TOKEN : " + token);
-            a.appendChild(linkText);
-            document.getElementById("token_form").appendChild(a);
+            showToken(token);
             document.getElementById("token_form").reset();
           } else {
             console.log(call_err);
