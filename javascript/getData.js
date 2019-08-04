@@ -153,14 +153,14 @@ function getData(){
             if(!err){
               contract.validateToken.call(token, fileID, (error, mapAddress) => {
                 if(!error){
+                  var div = document.createElement('div');
+                  div.setAttribute('class', 'loader');
+                  document.getElementById('redeem_form').appendChild(div);
                   console.log("Map address received : ", mapAddress);
                   node.get(mapAddress).then((mapStr) =>{
                     var map = new Map(JSON.parse(mapStr[1].content.toString()));
                     var ipfsAddress = map.get(fileID);
                     console.log("IPFS address of data : ", ipfsAddress);
-                    var div = document.createElement('div');
-                    div.setAttribute('class', 'loader');
-                    document.getElementById('redeem_form').appendChild(div);
                     node.get(ipfsAddress).then((file) => {
                       downloadableFile_usr(file[1].name, fileID, file[1].size, file[1].content, div);
                     })
