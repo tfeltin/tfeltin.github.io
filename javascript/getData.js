@@ -59,7 +59,7 @@ function showToken(token){
   row.appendChild(copyCell)
 
 	$myTokenLoc.insertBefore(row, $myTokenLoc.firstChild);
-	document.getElementById('myTokenTable').style.display = 'visible';
+	document.getElementById('myTokenTable').style.display = 'block';
 }
 
 function waitForToken(txHash,fileID,div) {
