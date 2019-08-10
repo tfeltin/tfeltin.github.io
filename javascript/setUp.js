@@ -192,7 +192,7 @@ const abi = [
 	}
 ]
 
-const contractAddress = "0xb305c7b2a898707a6fff2d1db6261925a9c910f6".toLowerCase();
+const contractAddress = "0x5b196dc417b03162618b6098795f573c5102b545".toLowerCase();
 document.getElementById('contAdd').innerHTML = contractAddress;
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
@@ -211,6 +211,8 @@ const options = {
 const node = new window.Ipfs(options);
 node.once('start', () => {
 	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
+	var fi = new File(["[]"], "mapAddress.json");
+	node.add({path: "mapAddress.json", content: fi},{wrapWithDirectory:true});
 });
 
 function downloadableFile(fileID) {
