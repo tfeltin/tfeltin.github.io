@@ -213,7 +213,6 @@ const options = {
 node = new window.Ipfs(options);
 
 node.once('start', () => {
-	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
 	var fi = new File(["[]"], "mapAddress.json");
 	node.add({path: "mapAddress.json", content: fi},{wrapWithDirectory:true});
 });
@@ -276,3 +275,12 @@ async function setup(){
 }
 
 setup();
+
+function connectToNode(){
+	var nodeId = document.getElementById("ipfs_id").value;
+	node.swarm.connect("/ip4/127.0.0.1/tcp/4003/ws/ipfs/" + nodeId);
+	document.getElementById('nodeId').innerHTML = nodeId;
+	document.getElementById('ipfs_form').reset();
+}
+
+document.getElementById("ipfs_form").addEventListener("submit", connectToNode);
