@@ -280,6 +280,7 @@ async function connectToNode(){
 	var nodeId = document.getElementById("ipfs_id").value;
 	await node.swarm.connect("/ip4/127.0.0.1/tcp/4003/ws/ipfs/" + nodeId);
 	document.getElementById('ipfs_id').style.display = 'none';
+	document.getElementById('peer_btn').style.display = 'none';
 	document.getElementById('nodeId').innerHTML = nodeId;
 }
 
