@@ -283,4 +283,4 @@ function connectToNode(){
 	document.getElementById('ipfs_form').reset();
 }
 
-document.getElementById("ipfs_form").addEventListener("submit", connectToNode);
+document.getElementById("peer_btn").addEventListener("click", connectToNode);

@@ -4,9 +4,28 @@ This is the PoC for a personal data management system based on the Ethereum bloc
 
 ## Getting ready
 
-The only requirement to try out the system is to have an Ethereum address on the Rinkeby TestNet and MetaMask installed on your preferred browser. You can install MetaMask by going to [this page](https://metamask.io/).
+#### MetaMask
+To try out the system you need an Ethereum address on the Rinkeby TestNet through MetaMask installed on your preferred browser. You can install MetaMask by going to [this page](https://metamask.io/).
 
-Once you are ready, you can go to https://tfeltin.github.io to access the interface.
+#### Connect your browser to your IPFS node
+Install IPFS on your computer with NodeJS by running
+`npm install ipfs` and change the config file located in `~/.ipfs/config` (if not initialized yet, run `ipfs init`).
+In the `Addresses` part of the document, add the `/ip4/127.0.0.1/tcp/4003/ws` entry as shown below:
+
+```
+"Addresses": {
+  "Swarm": [
+    "/ip4/0.0.0.0/tcp/4002",
+    "/ip4/127.0.0.1/tcp/4003/ws"
+  ],
+  "API": "/ip4/127.0.0.1/tcp/5002",
+  "Gateway": "/ip4/127.0.0.1/tcp/9090"
+}
+```
+
+Then, run `ipfs daemon` in a terminal to start your IPFS node, and `ipfs id` in another terminal to find your peer ID.
+
+When everything is ready, go to https://tfeltin.github.io to access the system interface.
 
 ## Try the system
 
