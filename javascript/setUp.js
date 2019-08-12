@@ -197,7 +197,7 @@ document.getElementById('contAdd').innerHTML = contractAddress;
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at(contractAddress);
-if (node == 'undefined') {
+if (node == null) {
 	const options = {
 		EXPERIMENTAL: {
 			pubsub: true
