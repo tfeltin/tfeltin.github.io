@@ -192,7 +192,7 @@ const abi = [
 	}
 ]
 
-const contractAddress = "0x5b196dc417b03162618b6098795f573c5102b545".toLowerCase();
+const contractAddress = "0x0608bcb622b1a71d3180bcc0314e486a98f54562".toLowerCase();
 document.getElementById('contAdd').innerHTML = contractAddress;
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
