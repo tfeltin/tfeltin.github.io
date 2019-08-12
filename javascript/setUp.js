@@ -197,20 +197,21 @@ document.getElementById('contAdd').innerHTML = contractAddress;
 const $myDataloc = document.querySelector('#myDataloc');
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at(contractAddress);
-if (node == null) {
-	const options = {
-		EXPERIMENTAL: {
-			pubsub: true
-		},
-		repo: 'ipfs-' + Math.random(),
-		config: {
-			Addresses: {
-				Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
-			}
+
+const options = {
+	EXPERIMENTAL: {
+		pubsub: true
+	},
+	repo: 'ipfs-' + Math.random(),
+	config: {
+		Addresses: {
+			Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
 		}
 	}
-const node = new window.Ipfs(options);
 }
+
+node = new window.Ipfs(options);
+
 node.once('start', () => {
 	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
 	var fi = new File(["[]"], "mapAddress.json");
