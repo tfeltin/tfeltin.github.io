@@ -31,6 +31,10 @@ When everything is ready, go to https://tfeltin.github.io to access the system i
 
 The web application functions interact with an IPFS client, and the Rinkeby TestNet through MetaMask by exchanging with a Smart Contract. Here are a few explanations on the different parts of the page:
 
+#### Your connection
+
+Before interacting with the system, remember to copy your peer ID in the *IPFS peer* box, in order to connect with you external node.
+
 #### Add Personal Data
 
 - If you are a user adding you own personal data, you can select a file on the left part of the box, and simply add your data to the system.
@@ -58,8 +62,9 @@ By giving the appropriate file ID, token and permission type, you can receive fi
 
 Here are a sample few steps that you can follow to try out the system.
 
+- Enter your external peer ID in the *Your connection* box to start.
 - Add any file to the system by selecting anything on the user side of the *Add personal data* box. A MetaMask pop up window will appear and ask you to confirm the transaction.
-- Wait until the transaction is confirmed, then reload the page.
+- Wait until the transaction is confirmed, then reload the page. When reloaded, re-enter your external peer ID.
 - Copy the file ID form the *Your personal data* box.
 - Paste it in the *Request a token* box and confirm the transaction. Wait until the token appears (can take a while).
 - In the *Use token* box, fill out the information based on the token you used, click *Get Data*, and confirm the transaction. After a while, the file you added to the system will be available again at the bottom of the page.
