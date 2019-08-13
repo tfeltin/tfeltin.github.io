@@ -27,11 +27,9 @@ Then, run `ipfs daemon` in a terminal to start your IPFS node, and `ipfs id` in 
 
 When everything is ready, go to https://tfeltin.github.io to access the system interface.
 
-## Try the system
+## Detailed sections
 
-The web application functions as an IPFS client and interacts with the Rinkeby TestNet through MetaMask by exchanging with a Smart Contract. When you close your browser window, the IPFS node goes down, so **make sure to have it on when trying out the system**.
-
-Here are a few explanations on the different parts of the page:
+The web application functions interact with an IPFS client, and the Rinkeby TestNet through MetaMask by exchanging with a Smart Contract. Here are a few explanations on the different parts of the page:
 
 #### Add Personal Data
 
@@ -55,3 +53,15 @@ Reference a file ID and permission type to ask for an access token.
 #### Use token
 
 By giving the appropriate file ID, token and permission type, you can receive files from the system.
+
+## Try it out
+
+Here are a sample few steps that you can follow to try out the system.
+
+- Add any file to the system by selecting anything on the user side of the *Add personal data* box. A MetaMask pop up window will appear and ask you to confirm the transaction.
+- Wait until the transaction is confirmed, then reload the page.
+- Copy the file ID form the *Your personal data* box.
+- Paste it in the *Request a token* box and confirm the transaction. Wait until the token appears (can take a while).
+- In the *Use token* box, fill out the information based on the token you used, click *Get Data*, and confirm the transaction. After a while, the file you added to the system will be available again at the bottom of the page.
+
+To try it out with someone else, remember to grant access to your files to someone before they ask for a token.
