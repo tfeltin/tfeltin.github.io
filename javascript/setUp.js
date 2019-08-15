@@ -202,7 +202,6 @@ const options = {
 	EXPERIMENTAL: {
 		pubsub: true
 	},
-	repo: 'ipfs-' + Math.random(),
 	config: {
 		Addresses: {
 			Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
@@ -215,6 +214,7 @@ node = new window.Ipfs(options);
 node.once('start', () => {
 	var fi = new File(["[]"], "mapAddress.json");
 	node.add({path: "mapAddress.json", content: fi},{wrapWithDirectory:true});
+	node.id().then((id) =>  console.log(id.id));
 });
 
 
