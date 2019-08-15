@@ -214,7 +214,7 @@ node = new window.Ipfs(options);
 node.once('start', () => {
 	var fi = new File(["[]"], "mapAddress.json");
 	node.add({path: "mapAddress.json", content: fi},{wrapWithDirectory:true});
-	node.id().then((id) =>  console.log(id.id));
+	node.id().then((id) => document.getElementById('nodeId').innerHTML = id.id);
 });
 
 
@@ -275,13 +275,3 @@ async function setup(){
 }
 
 setup();
-
-async function connectToNode(){
-	var nodeId = document.getElementById("ipfs_id").value;
-	await node.swarm.connect("/ip4/127.0.0.1/tcp/4003/ws/ipfs/" + nodeId);
-	document.getElementById('ipfs_id').style.display = 'none';
-	document.getElementById('peer_btn').style.display = 'none';
-	document.getElementById('nodeId').innerHTML = nodeId;
-}
-
-document.getElementById("peer_btn").addEventListener("click", connectToNode);
