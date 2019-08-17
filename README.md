@@ -47,11 +47,10 @@ By giving the appropriate file ID, token and permission type, you can receive fi
 
 Here are a sample few steps that you can follow to try out the system.
 
-- Enter your external peer ID in the *Your connection* box to start.
 - Add any file to the system by selecting anything on the user side of the *Add personal data* box. A MetaMask pop up window will appear and ask you to confirm the transaction.
-- Wait until the transaction is confirmed, then reload the page. When reloaded, re-enter your external peer ID.
+- Wait until the transaction is confirmed, then reload the page. A file ID should show under *Your personal data*.
 - Copy the file ID form the *Your personal data* box.
 - Paste it in the *Request a token* box and confirm the transaction. Wait until the token appears (can take a while).
-- In the *Use token* box, fill out the information based on the token you used, click *Get Data*, and confirm the transaction. After a while, the file you added to the system will be available again at the bottom of the page.
+- In the *Use token* box, fill out the information with the token, click *Get Data*, and confirm the transaction. After a while, the file you added to the system will be available again at the bottom of the page.
 
 To try it out with someone else, remember to grant access to your files to someone before they ask for a token.
