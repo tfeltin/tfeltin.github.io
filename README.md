@@ -51,6 +51,6 @@ Here are a sample few steps that you can follow to try out the system.
 - Wait until the transaction is confirmed, then reload the page. A file ID should show under *Your personal data*.
 - Copy the file ID form the *Your personal data* box.
 - Paste it in the *Request a token* box and confirm the transaction. Wait until the token appears (can take a while).
-- In the *Use token* box, fill out the information with the token, click *Get Data*, and confirm the transaction. After a while, the file you added to the system will be available again at the bottom of the page.
+- In the *Use token* box, fill out the information with the token and the file ID, click *Get Data*, and confirm the transaction. After a while, the file you added to the system will be available again at the bottom of the page.
 
 To try it out with someone else, remember to grant access to your files to someone before they ask for a token.
