@@ -33,7 +33,7 @@ When you add a file in the *Add Personal Data* box, or one is added on your beha
 
 #### Access Control
 
-Here you can grant or revoke permissions on the data you own, by precising the file ID and the Ethereum address of the user from whom to give/revoke access. You also have to precise a permission type (Create, Read, Update, Delete).
+Here you can grant or revoke permissions on the data you own, by filling out the file ID and the Ethereum address of the user from whom to give/revoke access. You also have to precise a permission type (Create, Read, Update, Delete).
 
 #### Request a token
 
