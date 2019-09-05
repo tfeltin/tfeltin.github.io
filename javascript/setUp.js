@@ -274,7 +274,7 @@ async function setup(){
 							console.log(e);
 						}
 					});
-				}
+				});
 			}else{
 				console.log(call_err);
 			}
