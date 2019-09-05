@@ -220,38 +220,42 @@ node.once('start', () => {
 
 function downloadableFile(map, fileID) {
 	var ipfsAddress = map.get(fileID);
-	node.ls(ipfsAddress).then((info)=>console.log(info));
-  //const file = new window.Blob([data], { type: 'application/octet-binary' })
-  //const url = window.URL.createObjectURL(file)
-  const row = document.createElement('tr')
-  //const nameCell = document.createElement('td')
-  //nameCell.innerHTML = name
-  const hashCell = document.createElement('td')
-  hashCell.innerHTML = fileID
-  //const sizeCell = document.createElement('td')
-  //sizeCell.innerText = size
-  const copyCell = document.createElement('td')
-  const link = document.createElement('a')
-  //link.setAttribute('href', url)
-  //link.setAttribute('download', name)
-  link.innerHTML = '<img width=20 class="table-action" src="assets/copy.svg" alt="Copy" />'
-	link.addEventListener("click", () => {
-		console.log("copy ", fileID)
-		var el = document.createElement('textarea');
-	  el.value = fileID;
-	  el.setAttribute('readonly', '');
-	  el.style = {position: 'absolute', left: '-9999px'};
-	  document.body.appendChild(el);
-	  el.select();
-		document.execCommand('copy');
-	  document.body.removeChild(el);
-	})
-  copyCell.appendChild(link)
-  row.appendChild(hashCell)
-  row.appendChild(copyCell)
+	node.ls(ipfsAddress).then((info)=>{
+		const row = document.createElement('tr')
 
-	$myDataloc.insertBefore(row, $myDataloc.firstChild);
-	document.getElementById('empty-row').style.display = 'none';
+	  const nameCell = document.createElement('td')
+	  nameCell.innerHTML = info[0].name;
+
+	  const sizeCell = document.createElement('td')
+	  sizeCell.innerText = info[0].size;
+
+	  const hashCell = document.createElement('td')
+	  hashCell.innerHTML = fileID
+
+	  const copyCell = document.createElement('td')
+	  const link = document.createElement('a')
+
+	  link.innerHTML = '<img width=20 class="table-action" src="assets/copy.svg" alt="Copy" />'
+		link.addEventListener("click", () => {
+			console.log("copy ", fileID)
+			var el = document.createElement('textarea');
+		  el.value = fileID;
+		  el.setAttribute('readonly', '');
+		  el.style = {position: 'absolute', left: '-9999px'};
+		  document.body.appendChild(el);
+		  el.select();
+			document.execCommand('copy');
+		  document.body.removeChild(el);
+		})
+	  copyCell.appendChild(link)
+		row.appendChild(nameCell)
+	  row.appendChild(hashCell)
+		row.appendChild(sizeCell)
+	  row.appendChild(copyCell)
+
+		$myDataloc.insertBefore(row, $myDataloc.firstChild);
+		document.getElementById('empty-row').style.display = 'none';
+	});
 }
 
 async function setup(){
