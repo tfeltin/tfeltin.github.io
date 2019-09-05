@@ -218,7 +218,9 @@ node.once('start', () => {
 });
 
 
-function downloadableFile(fileID) {
+function downloadableFile(map, fileID) {
+	var ipfsAddress = map.get(fileID);
+	node.ls(ipfsAddress).then((info)=>console.log(info));
   //const file = new window.Blob([data], { type: 'application/octet-binary' })
   //const url = window.URL.createObjectURL(file)
   const row = document.createElement('tr')
@@ -259,15 +261,23 @@ async function setup(){
     await ethereum.enable();
     web3.eth.defaultAccount = web3.eth.accounts[0];
     document.getElementById('address').innerHTML = web3.eth.defaultAccount;
-    contract.getMyData.call((e,myData) => {
-      if (!e){
-				for (i=0;i<myData.length;i++){
-					downloadableFile(myData[i]);
-        }
+		contract.getMapAddress.call((call_err, mapAddress) => {
+			if(!call_err){
+				node.get(mapAddress).then((mapStr) => {
+					var map = new Map(JSON.parse(mapStr[1].content.toString()));
+					contract.getMyData.call((e,myData) => {
+			      if (!e){
+							for (i=0;i<myData.length;i++){
+								downloadableFile(map, myData[i]);
+			        }
+						}else{
+							console.log(e);
+						}
+					});
+				}
 			}else{
-				console.log(e);
+				console.log(call_err);
 			}
-		});
   } else {
     web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/87c66a413df1470abf86a50b4a8bf555"));
   }
