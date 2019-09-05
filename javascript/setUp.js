@@ -249,8 +249,8 @@ function downloadableFile(map, fileID) {
 		})
 	  copyCell.appendChild(link)
 		row.appendChild(nameCell)
-	  row.appendChild(hashCell)
 		row.appendChild(sizeCell)
+	  row.appendChild(hashCell)
 	  row.appendChild(copyCell)
 
 		$myDataloc.insertBefore(row, $myDataloc.firstChild);
