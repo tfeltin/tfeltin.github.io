@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tfeltin/tfeltin.github.io#readme",
   "dependencies": {
-    "crypto-js": "^3.2.1",
+    "crypto-js": "^4.2.0",
     "openpgp": "^4.10.11",
     "web3": "github:ethereum/web3.js"
   }
